@@ -39,7 +39,7 @@ analysis page, but are not meant to be "deployed". For example, various files ar
 raw strings and Path objects, and these have no relevance to the repository structure.
 
 ### [Graphing Functions](https://github.com/NBPub/TitanUp/tree/main/code/graphing/)
-The files are organized by the section for the page to which they relate. 
+The files are organized by the section of the page to which they relate. 
 One file loads, processes, and sends data to another, which generates and saves plots.
 
 ### [Data Functions](https://github.com/NBPub/TitanUp/tree/main/code/data/)
@@ -50,6 +50,6 @@ One file loads, processes, and sends data to another, which generates and saves 
 
 ### [Image Processing](https://github.com/NBPub/TitanUp/tree/main/code/image_processing/)
 Pillow functions used to modify images created by the graphing functions:
- - **Crop** crops image based on background color, used for graphs that couldn't save with a `tight bbox`
- - **Invert** inverts image, used for aesthetics
+ - **Crop:** crops image based on background color, used for graphs that couldn't save with a `tight bbox`
+ - **Invert:** inverts image, used for aesthetics
 
