@@ -1,7 +1,7 @@
-# <img src="/images/favicon.png" title="Titan up!")**  Titans Focused NFL Data Analysis
+# <img src="/images/favicon.png" title="Titan up!">  Titans Focused NFL Data Analysis
 Repository for code persistence and page hosting.
 
->## **[Update Link to github page]()**
+>## [TitanUp - Titans focused NFL data analysis](https://nbpub.github.io/TitanUp)
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
