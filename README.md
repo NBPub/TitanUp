@@ -3,7 +3,6 @@ Repository for code persistence and page hosting. Click the link below to visit 
 
 >## [Check me out!](https://nbpub.github.io/TitanUp)
 
-###  
 
 ## Contents
 - [Motivation](#motivation)
@@ -22,12 +21,13 @@ Utilize sources of NFL data to practice processing, graphing, and interpreting l
  - **[Pro-Football-Reference](https://www.pro-football-reference.com/teams/oti/career-av.htm)** Oilers/Titans career AV table, and general reference
 
 ## Feedback
-Submit an issue to comment on the analysis or code. 
+**[Submit](https://github.com/NBPub/TitanUp/issues/new/choose)** an issue to comment on the analysis or code. 
 
 ## Code Notes
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
 ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+<img src="https://raw.githubusercontent.com/mwaskom/seaborn/master/doc/_static/logo-wide-lightbg.svg" style="height:30px;width:auto;">
 <img src="https://matplotlib.org/stable/_images/sphx_glr_logos2_003.png" style="height:30px;width:auto;">
 <img src="https://repository-images.githubusercontent.com/5171600/28cb0300-7e53-11ea-86e8-ba321370c31a" style="height:30px;width:auto;">
 ![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black) 
