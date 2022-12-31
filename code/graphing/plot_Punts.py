@@ -5,7 +5,7 @@ import json
 
 from plot_Punts_scripts import punt_att, punt_distance_bar, OOB_bar, two_bar, \
                         epa_bar, binary_LogReg, KernReturn_LogReg,\
-                        NormNet_RetRate_historical, punt_distance_reg_order
+                        NormDist_RetRate_historical, punt_distance_reg_order
                         
 ###     NOTE! Saves to three different folders!     ###
         # graphs/ Intro, Kern History, Kern v Stonehouse 
@@ -70,7 +70,7 @@ KernReturn_LogReg(sub, 2016, 'punt_returned')
 
 
 
-# Normalized Net yards vs Return Rate for punter seasons (scatter + reg)
+# Normalized Net,Gross yards vs Return Rate for punter seasons (scatter + reg)
 test = pd.DataFrame(columns = ['name','season','return_rate', 'norm_net'])
 k = 1
 for val in punts.punter_player_name.unique():
@@ -83,9 +83,12 @@ for val in punts.punter_player_name.unique():
             test.loc[k,'punts'] = int(sub2.shape[0])
             test.loc[k,'return_rate'] = sub2.punt_returned.mean()
             test.loc[k,'norm_net'] = np.mean(sub2.net_yards/sub2.yardline_100)
+            test.loc[k,'norm_gross'] = np.mean(sub2.kick_distance/sub2.yardline_100)
             k+=1
 test.punts = test.punts.astype('int')
 test['return_rate'] = test['return_rate'].astype('float')
 test['norm_net'] = test['norm_net'].astype('float')
+test['norm_gross'] = test['norm_gross'].astype('float')
 
-NormNet_RetRate_historical(test)
+NormDist_RetRate_historical(test, 'norm_net')
+NormDist_RetRate_historical(test, 'norm_gross')

@@ -43,7 +43,7 @@
 	<div class="container-fluid mt-3">
 	 <h1 class="ms-2">Titans Focused NFL Data Analysis</h1>
 	   <p class="fs-5 ms-3">
-	   Welcome to my page. Use the <b>Contents</b> links below or the top navigation bar to move through the sections.<br><br>
+	   Welcome to my page. Use the <b>Contents</b> links below or the top navigation bar to move through the sections.<br>
 	   Python was used for data analysis, graphs, and page creation itself. See the <a href="https://github.com/NBPub/TitanUp">repository</a> 
 	   for more information on the code and process.</p>
 
@@ -72,7 +72,7 @@
 	 
 	 <h3 class="ms-3 mt-5" id="scrollspyAck">Acknowledgements</h3>
 	   <ul class="ms-4 fs-5"><span class=" fw-bold fs-4 text-decoration-underline">Data Sources & Methods</span>
-	     <li><b>nflverse </b><a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">play-by-play</a></li>
+	     <li><b>nflverse </b><a href="https://github.com/nflverse/nflverse-data/releases/tag/pbp">play-by-play</a>, <a href="https://github.com/nflverse/nfldata/blob/master/data/teamcolors.csv">team colors</a></li>
 		 <li><b>nflfastR </b><a href="https://www.nflfastr.com/articles/field_descriptions.html">play-by-play field descriptions</a></li>
 		 <li><b>Puntalytics </b><a href="https://github.com/Puntalytics/puntr/blob/master/R/processing.R">punt data processing</a></li>
 		 <li><b>Pro-Football-Reference </b><a href="https://www.pro-football-reference.com/teams/oti/career-av.htm">Oilers/Titans career AV table, and useful reference</a></li>
@@ -10004,7 +10004,7 @@
 			 <div class="row mt-3">
 			   <div class="col-md-8 col-xl-6 text-center text-info fs-6">
 			     <b class="mt-3">Normalized Net Yards vs Return Rate</b>
-			     <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/historical-normnet-v-returnrate.png" class="img-fluid" title="Historical normalized net yards vs YTG, Kern and Stonehouse highlighted"/>	
+			     <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/historical-normnet-v-returnrate.png" class="img-fluid" title="Historical normalized net yards vs YTG. Top 5, Kern, and Stonehouse highlighted"/>	
 			   </div>
 			   <div class="col-md-4 col-xl-6 d-flex justify-content-around flex-column text-warning fs-5">
 				<p class="ms-2"><span style="color:lime">Kern's seasons</span> show the relatively high net yards and 
@@ -10023,7 +10023,8 @@
 			 </div>				 
 			 
 			 <div class="row mt-3 text-center fs-5">
-			   <a href="#KernStoneCollapse1" style="color:khaki;" data-bs-toggle="collapse">▼ show Binary Metric regressions ▼</a>
+			   <a href="#KernStoneCollapse1" style="color:khaki;" data-bs-toggle="collapse">▼ show Binary Metric regressions ▼
+			   <br>Normalized Gross Yards vs Return Rate, 2009-2022</a>
 			 </div>	
 		<div class="collapse" id="KernStoneCollapse1">
 			 <div class="row mt-3">
@@ -10039,6 +10040,9 @@
 			   </div>
 			 </div><div class="row">
 			   <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/LM-binaries2.png" class="img-fluid" title="Kern vs Stonehouse, Binaries vs YTG regressions 2"/>
+			 </div><div class="row mt-3">
+			   <p class="text-center text-info">Normalized Gross Yards vs Return Rate</p>
+			   <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/historical-normgross-v-returnrate.png" class="img-fluid" title="Historical normalized gross yards vs YTG. Top 5, Kern, and Stonehouse highlighted"/>
 			 </div>
 	    </div><hr class="border border-3 mb-3"/>			   
 		   </div>
@@ -11012,7 +11016,7 @@
 			 
 			 <div class="row justify-content-center">
 			   <div class="col-lg-6 col-xl-7">  
-				 <figure class="figure"><img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/norm-net_vs_return-rate.png" class="img-fluid"  style="max-height:80vh;" title="2022 punts, normalized net yards vs return rate"/>
+				 <figure class="figure"><img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/norm-net_vs_return-rate.png" class="img-fluid"  style="max-height:80vh;" title="2022 punts, normalized net yards vs return rate"/>
 				 <figcaption class="figure-caption">Punters with at least 30 punts on a single team in 2022. Marker size scaled 
 				 with # punts and colored by team. Grey line and area show linear fit and confidence interval.</figcaption></figure>
 			   </div><div class="col-lg-6 col-xl-5 col-xxl-4">
@@ -11772,10 +11776,11 @@
 			   <p>As expected, punters who net good yards despite high return rates also punt far. 
 			   Stonehouse has been the best in the league by this metric, which measures how much of the available room (YTG) a punt travels. 
 			   </p>
+			   <p class="text-center text-info fs-6 fw-bold">Normalized Gross Yards vs Return Rate, Table sorted by normalized gross yards (Norm.Gross)</p>
 			 </div></div>
 			 <div class="row my-2 justify-content-center">
 			   <div class="col-lg-6 col-xl-7 col-xxl-6"> 
-				 <figure class="figure"><img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/norm-gross_vs_return-rate.png" class="img-fluid" title="2022 punts, normalized gross yards vs return rate"/>
+				 <figure class="figure"><img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/norm-gross_vs_return-rate.png" class="img-fluid" title="2022 punts, normalized gross yards vs return rate"/>
 				 <figcaption class="figure-caption">Punters with at least 30 punts on a single team in 2022. Marker size scaled 
 				  with # punts and colored by team. Grey line and area show linear fit and confidence interval.</figcaption></figure>
 			   </div><div class="col-lg-6 col-xl-5 col-xxl-4"><div style="max-height:40vw;overflow:auto;display:inline-block;">
@@ -12533,9 +12538,10 @@
 			   </p>
 			 </div></div>			  
 			  <div class="row my-2 justify-content-center">
-				<div class="col-lg-8"> 
-				  <figure class="figure"><img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/return-rate_vs_ytg.png" class="img-fluid" title="2022 punts, return rate vs YTG"/>
-				 <figcaption class="figure-caption">Punters with at least 30 punts on a single team in 2022. Marker size scaled 
+				<div class="col-lg-8">
+				  <p class="text-center text-info fs-6 fw-bold">Return Rate vs YTG, 2022 punts</p>
+				  <figure class="figure"><img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/return-rate_vs_ytg.png" class="img-fluid" title="2022 punts, return rate vs YTG"/>
+				  <figcaption class="figure-caption">Punters with at least 30 punts on a single team in 2022. Marker size scaled 
 				  with # punts and colored by team. Grey line and area show linear fit and confidence interval. </figcaption></figure>
 				</div><div class="col-lg-4 text-warning fs-5 d-flex justify-content-around flex-column">
 				  <p class="ms-2">
@@ -12556,12 +12562,38 @@
 			<div class="collapse" id="StoneCollapse"><div class="row justify-content-around">
 			  <div class="col-md-11 col-xxl-6 text-center text-info">
 				<b>Inside Twenty rate vs Yards to go</b>
-				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/in20_vs_ytg.png" class="img-fluid" title="2022 punts, inside opponent's 20 rate vs YTG"/>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/in20_vs_ytg.png" class="img-fluid" title="2022 punts, inside opponent's 20 rate vs YTG"/>
 			  </div>
 			  <div class="col-md-11 col-xxl-6 text-center text-info">
+				<b>Punt Distribution by YTG. Wishnowsky vs Townsend vs Others</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/punt_kde_2022_M.Wishnowsky_T.Townsend.png" class="img-fluid" title="2022 punts, Wishnowsky vs Townsend KDE"/>
+			  </div>			  
+			  <div class="col-md-11 col-xxl-6 text-center text-info">
+				<b>Net Yards vs Yards to go</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/net_vs_ytg.png" class="img-fluid" title="2022 punts, Net Yards vs YTG"/>
+			  </div>
+			  <div class="col-md-11 col-xxl-6 text-center text-info">
+				<b>Gross Yards vs Yards to go</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/gross_vs_ytg.png" class="img-fluid" title="2022 punts, Gross Yards vs YTG"/>
+			  </div>
+			  
+			  <div class="col-md-6 col-xl-4 text-center text-info">
 				<b>Out-of-bounds rate vs Yards to go</b>
-				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/OOB_vs_ytg.png" class="img-fluid" title="2022 punts, OOB rate vs YTG"/>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/OOB_vs_ytg.png" class="img-fluid" title="2022 punts, OOB rate vs YTG"/>
 			  </div>		  
+			  <div class="col-md-6 col-xl-4 text-center text-info">
+				<b>Downed rate vs Yards to go</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/downed_vs_ytg.png" class="img-fluid" title="2022 punts, Downed rate vs YTG"/>
+			  </div>				
+			  <div class="col-md-6 col-xl-4 text-center text-info">
+				<b>Fair Catch rate vs Yards to go</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/FC_vs_ytg.png" class="img-fluid" title="2022 punts, Fair Catch rate vs YTG"/>
+			  </div>	
+			  <div class="col-md-6 col-xl-4 text-center text-info">
+				<b>Normalized Net Yards vs Touchback Rate</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/norm-net_vs_touchback.png" class="img-fluid" title="2022 punts, Normalized net yards vs Touchback rate"/>
+			  </div>				  
+			
 			</div></div>  
 			<hr class="border border-3 mb-3"/>	 
 	     </div>

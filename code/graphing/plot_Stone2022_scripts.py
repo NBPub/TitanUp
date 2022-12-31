@@ -5,32 +5,47 @@ import pandas as pd
 import numpy as np
 
 # Part III, punt data = 2022 punt data / teams / punters / R.Stonehouse <-- Punter to analyze
-def punt_att_KDE(punts): # Punt Attempts vs Yds to go (KDE)
+def punt_att_KDE(punts, analyze): # Punt Attempts vs Yds to go (KDE)
+    for punter in analyze:
+        punts.loc[punts[punts.punter_player_name==punter].index,'POI']=punter
+    punts.loc[punts[~punts.punter_player_name.isin(analyze)].index,'POI'] ='Rest of NFL'
+    
+    savename = 'punt_kde_2022.png' if analyze == ['R.Stonehouse'] else f'punt_kde_2022_{"_".join([val for val in analyze])}.png'
+    
+
     settings = {'figure.figsize':[12, 8], 'figure.facecolor':'gainsboro', 'figure.edgecolor':'k',  \
       'axes.grid':False,'axes.labelweight':'bold','axes.titleweight':'bold', 'axes.titlesize':'x-large','axes.labelsize':'x-large',
-      'xtick.color':'k', 'xtick.labelsize': 'large', 'font.weight':'bold', 'savefig.dpi': 300, 'savefig.bbox':'tight'}   
-        
+      'xtick.color':'k', 'xtick.labelsize': 'large', 'font.weight':'bold', 'savefig.dpi': 300, 'savefig.bbox':'tight'}       
     with plt.rc_context(settings):
         sns.kdeplot(data=punts, x="yardline_100", hue = 'POI', legend=False,
                     common_norm=False, fill=True, alpha=0.2, linewidth=8)
         plt.xlabel('Yards to go')
         plt.ylabel('Estimation of Punt Probability')
         plt.ticklabel_format(axis='y', style='sci', scilimits=(0,0))
-        plt.legend(['R.Stonehouse','Rest of NFL'], labelcolor=['darkorange','royalblue'], frameon=False, loc='upper left', fontsize='xx-large')
-        plt.savefig('graphs/stonehouse/punt_kde_2022.png')
+        if analyze == ['R.Stonehouse']:
+            plt.legend([analyze[0],'Rest of NFL'], labelcolor=['darkorange','royalblue'], 
+                       frameon=False, loc='upper left', fontsize='xx-large')
+        else:
+            labels = [val for val in analyze] + ['Rest of NFL']
+            plt.legend(labels, labelcolor=['green','darkorange','royalblue'], 
+                       frameon=False, loc='upper left', fontsize='xx-large')            
+            
+        
+        plt.savefig(f'graphs/stonehouse/{savename}')
         # plt.show()
         plt.close()   
         
 def punt_att_swarm(punts, teams, analyze): # Punter Attempts across League (boxen + swarm)
-    plot_settings = {'figure.figsize':[12, 8],'figure.facecolor':'gainsboro', 'figure.edgecolor':'k',  \
-      'axes.grid':True, 'grid.color':'dimgrey','axes.grid.axis':'x','axes.labelweight':'bold','axes.titleweight':'bold', 'axes.titlesize':'x-large',
-      'grid.alpha':0.5, 'xtick.color':'k', 'xtick.labelsize': 'large', 'font.weight':'bold', 
-      'savefig.dpi': 300, 'savefig.bbox':'tight'}    
+    savename = 'punt_counts_2022.png' if analyze == 'R.Stonehouse' else f'punt_counts_2022_{analyze}.png'
     wer = pd.DataFrame(punts.value_counts('punter_player_name'))
     for val in wer.index:
         wer.loc[val,'team'] = teams[val]
-    
-    with plt.rc_context(plot_settings):
+
+    settings = {'figure.figsize':[12, 8],'figure.facecolor':'gainsboro', 'figure.edgecolor':'k',  \
+      'axes.grid':True, 'grid.color':'dimgrey','axes.grid.axis':'x','axes.labelweight':'bold','axes.titleweight':'bold', 'axes.titlesize':'x-large',
+      'grid.alpha':0.5, 'xtick.color':'k', 'xtick.labelsize': 'large', 'font.weight':'bold', 
+      'savefig.dpi': 300, 'savefig.bbox':'tight'}        
+    with plt.rc_context(settings):
         sns.boxplot(x=wer[0])
         ax = sns.swarmplot(data=wer, x=0, hue=0, size=35, palette='flare', legend=False, edgecolor = 'k', linewidth=3)
         plt.xlabel('Punt Attempts for each Punter')
@@ -50,17 +65,19 @@ def punt_att_swarm(punts, teams, analyze): # Punter Attempts across League (boxe
         colors = abs(colors - np.concatenate((np.ones((colors.shape[0],3)), np.zeros((colors.shape[0],1))), axis=1))
         for i,val in enumerate(ax.collections[0].get_offsets()):
             team = wer.team[i]
-            correct = -1 if team in [] else 1  # reverse certain team labels
-            # correct = 1
-            plt.annotate(team,(val[0], 1.15*val[1]*correct), ha='center', va='center', color=tuple(colors[i]))
-            #named.append(teams[wer.index[i]])
-        
+            # correct = -1 if team in [] else 1  # reverse certain team labels
+            correct = 1
+            plt.annotate(team,(val[0], 1.15*val[1]*correct), ha='center', va='center', color=tuple(colors[i]))       
 
-        plt.savefig('graphs/stonehouse/punt_counts_2022.png')
+        plt.savefig(f'graphs/stonehouse/{savename}')
         # plt.show()
         plt.close()
         
 def punt_distance_boxen(punts, analyze):
+    savename = 'stonehouse_nfl_box.png' if analyze == 'R.Stonehouse' else f'{analyze}_nfl_box_2022.png'
+    punts.loc[punts[punts.punter_player_name==analyze].index,'POI'] =analyze
+    punts.loc[punts[punts.punter_player_name!=analyze].index,'POI'] ='Rest of NFL'
+    
     sub = punts.loc[:,['kick_distance','net_yards','POI','yardline_100', 'punter_player_name']]
     sub.loc[:,'kick_distance'] = sub.kick_distance/sub.yardline_100
     sub.loc[:,'net_yards'] = sub.net_yards/sub.yardline_100
@@ -121,11 +138,15 @@ def punt_distance_boxen(punts, analyze):
         plt.ylabel('')
         plt.yticks([])
         
-        plt.savefig('graphs/stonehouse/stonehouse_nfl_box.png')
+        plt.savefig(f'graphs/stonehouse/{savename}')
         # plt.show()
         plt.close()
         
-def punt_distance_reg(punts):
+def punt_distance_reg(punts, analyze):
+    savename = 'stonehouse_nfl_reg.png' if analyze == 'R.Stonehouse' else f'{analyze}_nfl_reg_2022.png'
+    punts.loc[punts[punts.punter_player_name==analyze].index,'POI'] =analyze
+    punts.loc[punts[punts.punter_player_name!=analyze].index,'POI'] ='Rest of NFL'
+    
     # data prep to get subplots for lmplot
     da = punts.loc[:,['yardline_100','kick_distance','net_yards','POI']]
     del punts
@@ -157,7 +178,7 @@ def punt_distance_reg(punts):
         
         
         plt.tick_params(axis='y',labelleft=True, pad=0)
-        plt.savefig('graphs/stonehouse/stonehouse_nfl_reg.png')
+        plt.savefig(f'graphs/stonehouse/{savename}')
         # plt.show()
         plt.close()
         
@@ -170,7 +191,8 @@ def individual_punter_reg(data, col1, col2, savename): # table data, x column, y
     # axes names
     ax_labels = {'norm_net':'Net Yards / Yards to go', 'norm_gross':'Gross Yards / Yards to go',
                  'return_rate':'Return Rate', 'YTG':'Avg. Yards to go','OOB':'Out-of-bounds Rate',
-                 'in20': 'Inside 20 Rate'}
+                 'in20': 'Inside 20 Rate', 'downed':'Downed Rate','FC':'Fair Catch Rate',
+                 'net':'Net Yards','gross':'Gross Yards', 'touchback':'Touchback Rate'}
     
     check_factor = 0.25
     
@@ -212,52 +234,3 @@ def individual_punter_reg(data, col1, col2, savename): # table data, x column, y
         plt.savefig(f'graphs/stonehouse/{savename}')
     # plt.show()
     plt.close()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    

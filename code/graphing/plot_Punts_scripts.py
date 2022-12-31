@@ -241,39 +241,72 @@ def KernReturn_LogReg(sub, divider, metric):
         #plt.show()
         plt.close()
         
-def NormNet_RetRate_historical(test):
+def NormDist_RetRate_historical(test, metric):
     # labels
-    stone = test[test.name == 'R.Stonehouse']
-    kern = test[test.name == 'B.Kern'].sort_values('norm_net',ascending=False)[0:5]
-    kern2 = test[test.name == 'B.Kern'].sort_values('norm_net',ascending=False)[5:]
-    
+    if metric == 'norm_net':
+        kern = test[test.name == 'B.Kern'].sort_values(metric,ascending=False)[0:5]
+        kern2 = test[test.name == 'B.Kern'].sort_values(metric,ascending=False)[5:]
+    else:
+        kern = test[test.name == 'B.Kern'].sort_values(metric,ascending=False)[0:6]
+        kern2 = test[test.name == 'B.Kern'].sort_values(metric,ascending=False)[6:]            
     settings = {'figure.figsize':[10, 8], 'figure.facecolor':'gainsboro', 'figure.edgecolor':'k',  \
       'axes.grid':False,'axes.labelweight':'bold','axes.titleweight':'bold', 'axes.titlesize':'x-large','axes.labelsize':'x-large',
       'xtick.color':'k', 'xtick.labelsize': 'large', 'font.weight':'bold', 'savefig.dpi': 300, 'savefig.bbox':'tight'}   
             
+    stone = test[test.name == 'R.Stonehouse']
+    top_5 = test.sort_values(metric, ascending=False)[0:5]
+    top_5.reset_index(drop=True,inplace=True)
+    # remove Stonehouse from top 5 labels, should at least check for Kern, too.
+    if not top_5[top_5.name == 'R.Stonehouse'].empty:
+        ind = top_5[top_5.name == 'R.Stonehouse'].index[0]
+        ind = f'{ind+1}. '
+        top_5 = top_5[top_5.name != 'R.Stonehouse']
+    else:
+        ind = ''
+        
     with plt.rc_context(settings):
-        ax = sns.regplot(data=test,x='return_rate',y='norm_net', scatter_kws={'alpha':0.5}, color='grey')
-        sns.regplot(data=test[test.name == 'B.Kern'],x='return_rate',y='norm_net', scatter_kws={'alpha':0.75}, color='magenta')
-        ax.plot(stone['return_rate'],stone['norm_net'],'o', color='orange')
+        ax = sns.regplot(data=test,x='return_rate',y=metric, scatter_kws={'alpha':0.5}, color='grey')
+        sns.regplot(data=test[test.name == 'B.Kern'],x='return_rate',y=metric, scatter_kws={'alpha':0.75}, color='magenta')
+        ax.plot(stone['return_rate'],stone[metric],'o', color='orange')
         bounds = (ax.get_xlim(), ax.get_ylim())
         
         ax.plot((test['return_rate'].mean(),test['return_rate'].mean()),bounds[1],'--',color='grey',lw=0.5)
-        ax.plot(bounds[0],(test['norm_net'].mean(),test['norm_net'].mean()),'--',color='grey',lw=0.5)
+        ax.plot(bounds[0],(test[metric].mean(),test[metric].mean()),'--',color='grey',lw=0.5)
         
         ax.set_xlim(bounds[0])
         ax.set_ylim(bounds[1])
+        x_pos = np.linspace(bounds[0][0],bounds[0][1], 20)
+        y_pos = np.linspace(bounds[1][0],bounds[1][1], 20)
                     
-        plt.annotate('R.Stonehouse', (stone['return_rate'],stone['norm_net']+.005), ha='center',va='bottom', color='darkorange', fontweight='bold', fontsize='large')
-        plt.text(0.3,0.705,'B.Kern', color='magenta',fontsize='large')
-        for val in kern.index:
-            plt.annotate(kern.season[val], (kern['return_rate'][val],kern['norm_net'][val]), ha='right',va='bottom', color='magenta', fontweight='bold')
-        for val in kern2.index:
-            plt.annotate(kern2.season[val], (kern2['return_rate'][val],kern2['norm_net'][val]), ha='left',va='top', color='magenta', fontweight='bold')    
-        plt.text(0.45,0.7,f"NFL('09-'22)\n{test.shape[0]} punter seasons", color='grey',fontsize='large')
+        plt.annotate(f"{ind}{stone['name'][stone.index[0]]}", (stone['return_rate'],stone[metric]+.003), 
+                     ha='center',va='bottom', color='darkorange', fontweight='bold', fontsize='large')
         
+        plt.text(x_pos[1],y_pos[16],'B.Kern', color='magenta',fontsize='large')
+        for val in kern.index:
+            plt.annotate(f"'{str(kern.season[val])[-2:]}", (kern['return_rate'][val],kern[metric][val]), 
+                         ha='right',va='bottom', color='magenta', fontweight='bold')
+        for val in kern2.index:
+            plt.annotate(f"'{str(kern2.season[val])[-2:]}", (kern2['return_rate'][val],kern2[metric][val]), 
+                         ha='left',va='top', color='magenta', fontweight='bold')    
+        
+        plt.text(x_pos[1],y_pos[3],f"NFL('09-'22)\n{test.shape[0]} punter seasons", color='grey',fontsize='large')
+        
+        va = 'bottom' # don't need to do this reversing for Net Yds plot
+        for val in top_5.index:
+            va = 'bottom' if va == 'top' else 'top'
+            correct = -1 if va == 'top' else 1
+            ax.plot(top_5['return_rate'][val],top_5[metric][val],'o', color='green')
+            plt.annotate(f"{val+1}. {top_5.name[val]} '{str(top_5.season[val])[-2:]}", 
+                         (top_5['return_rate'][val],top_5[metric][val]+correct*.003), 
+                         ha='left',va=va, color='green', fontweight='bold')
+
         plt.xlabel('Return Rate')
-        plt.ylabel('Net Yards / Yards to go')
-        plt.savefig('graphs\kern v stonehouse\historical-normnet-v-returnrate.png')
+        if metric == 'norm_net':
+            plt.ylabel('Net Yards / Yards to go')
+            plt.savefig('graphs\kern v stonehouse\historical-normnet-v-returnrate.png')
+        else:
+            plt.ylabel('Gross Yards / Yards to go')
+            plt.savefig('graphs\kern v stonehouse\historical-normgross-v-returnrate.png')            
         
     plt.show()
-    plt.close()    
+    plt.close()
