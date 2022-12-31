@@ -18,7 +18,7 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarBase">
 		  <ul class="navbar-nav me-auto">
-			<li class="nav-item"><a class="nav-link fw-bold border-start text-primary" href="#scrollspyAck">Playground</a></li>
+			<li class="nav-item"><a class="nav-link fw-bold border-start text-primary" href="#scrollspyPG">Playground</a></li>
 			<li class="nav-item"><a class="nav-link fw-bold border-start text-primary" href="#scrollspyTitansAV">Titan Career AV</a></li>			
 			<li class="nav-item"><a class="nav-link fw-bold border-start text-primary" href="#scrollspyPunt">Punter Analysis</a></li>	
 			<li class="nav-item dropdown">
@@ -43,9 +43,10 @@
 	<div class="container-fluid mt-3">
 	 <h1 class="ms-2">Titans Focused NFL Data Analysis</h1>
 	   <p class="fs-5 ms-3">
-	   Welcome to my page. Use the <b>Contents</b> links below or the top navigation bar to move through the sections.<br>
+	   Welcome to my page. Use the <b>Contents</b> links below or the top navigation bar to move through the sections.
+	   The page is readable, but not optimized for mobile screens. On a large screen, some portions may look better in portrait orientation.<br>
 	   Python was used for data analysis, graphs, and page creation itself. See the <a href="https://github.com/NBPub/TitanUp">repository</a> 
-	   for more information on the code and process.</p>
+	   for more information on the code and process. It can also be used to <a href="">submit</a> feedback.</p>
 
 	 <h3 class="ms-3 mt-3" id="scrollspyAck">Contents</h3>
 	   <ul class="mx-4 fs-5">
@@ -117,11 +118,11 @@
 		   The top 5 players for AV, Games, and AV/G were labelled on the graphs.
 		   <br><br>
 		   The graphs highlight Titans legends, players with short stints of greatness, and long-time role players. 
-		   Players that are above the <b style="color:tan">TAN</b> regression line have relatively high <b>AV/G</b>, which is more clearly shown in their 
+		   Players that are above the <b style="color:tan">TAN</b> regression line have relatively high <b>AV/G</b>, which is also shown in their 
 		   marker's shading, darker is higher <b>AV/G</b>. Marker size was also scaled with <b>Games played</b>, though not as distinctly.
 		   <br><br><b class="mx-5">Position Groups:</b>
 		   </p>	
-	     <div class="container-fluid row" ><!--style="background-color:#232323"-->
+	     <div class="container-fluid row" >
 		   <nav><div class="nav nav-tabs" id="nav-tab" role="tablist">
 		   
 		     <button class="nav-link text-muted fw-bold fs-4 px-5 "
@@ -8956,7 +8957,7 @@
 <hr>		 
 	 <h1 class="ms-2 mt-5" id="scrollspyPunt">Punter Analysis</h1>
 	   <p class="ms-5 text-muted">To be addded: <a href="https://puntalytics.github.io/metrics.html">advanced punting metrics</a>, see link for discussion on why net/gross yds or EPA may not be ideal for punts.</p>
-	   <p class="text-center fw-bold fs-4"><a class="text-center text-success" href="https://github.com/Puntalytics/puntr-data/issues/1">Support my cause</a></p>
+	   <p class="text-center fw-bold fs-4"><a class="text-center text-success" href="https://github.com/Puntalytics/puntr-data/issues/1">Support my cause (jk, they heard me)</a></p>
 	   <ul class="fs-4 my-5"><b class="">Punter Analysis Contents</b>
 	     <li class="ms-5 my-3"><a href="#scrollspyPuntIntro">Punt Data Analysis</a></li>
 		 <li class="ms-5 my-3"><a href="#scrollspyPuntTit">Titans Punters, 2009-current</a></li>
@@ -9119,7 +9120,7 @@
 		  </div><div class="row my-3">	
 		    <p class="fs-5 mx-3">To start, I decided to visualize various punter metrics against, <b>"Yards-to-go"</b>, 
 		    which I call distance from the line-of-scrimmage to the opponent's endzone, typically at least 40 yards (~57 yard field goal) for punts. 
-		    This normalizes distance metrics, gross and net yards, as a punter can only punt as far as the space they have. 
+		    This normalizes the distance metrics, gross and net yards, as a punter can only punt as far as the space they have. 
 		    The graphs below show how punt distance and punt attempts vary with Yards to go.
 		    </p>
 		  </div>
@@ -9128,15 +9129,14 @@
 			  <p class="fs-5 ms-3">Average <b>gross</b> and <b style="color:teal">net yards</b> for a punt are illustrated by the shading, 
 			  and the smaller bars <span class="bg-dark px-2" style="color:magenta"> | </span><span class="px-2" style="color:lightblue;background-color:teal;"> | </span> 
 			  indicate the uncertainty for the interval. Each metric initially increases with yards to go (YTG), then settles at a steady value. 
-			  This indicates the average distance limitation for punters.
+			  This indicates an average distance limitation for punters.
 			  In the flat region, there is an area between <b>gross</b> and <b style="color:teal">net</b> yards.
 			  It represents the average punt yards lost to returns and other factors, like touchbacks.
 			  In the sloping region, at low YTG, punts were more likely to net their distance, as 
 			  returns (especially longer ones) are less likely.
 			  </p><p class="fs-5 ms-3">
-			  Uncertainty for punt distance is highest with the most yards to go.
-			  a team's own five yardline. The second chart shows how the punt attempts varied with yards to go. 
-			  Punts were grouped into small YTG bins, then counted and shown by the bars. 
+			  The second chart shows how punt attempts varied with yards to go. 
+			  Punts were grouped into small YTG bins, the bin counts are shown by the bars. 
 			  The solid line approximates this distribution, and is used in later sections. 
 			  It is helpful to remember if a punt is likely from a certain YTG when considering if 
 			  data in the charts are meaningful. The first chart shows highest uncertainty at over 95 YTG, where 
@@ -9158,9 +9158,9 @@
 			</div>
 		    <div class="col-md-6 col-xxl-7 d-flex justify-content-evenly flex-column">
 			  <p class="fs-5 ms-3">A number of punt metrics are binary stats, whose rates and meanings may change with YTG.
-			  These metrics either happened <b>1</b> or didn't happen <b>0</b>. Note the scale of the y-axis with the following charts.</p>
+			  These metrics either happened <b>1</b> or didn't happen <b>0</b>. Note the scale of the y-axis in the following charts.</p>
 			  <p class="fs-5 ms-3">The first example shows Out Of Bounds (OOB) rate. It appears to have little in relation with 
-			  YTG, and inherent variation across the YTG range. Within error, it seems to stay within its 10% overall average.</p>
+			  YTG, and high variation across the YTG range. Within error, it seems to stay within its 10% overall average.</p>
 			</div>
 		  </div>		  
 		  
@@ -9168,7 +9168,7 @@
 		    <div class="col-md-6 col-xxl-3 d-flex justify-content-evenly flex-column">			  
 			  <p class="fs-5 ms-3">Touchbacks may be undesireable from close (just 30 net yds from the 50), but 
 			  impressive and very difficult from distance. It seems most punters wouldn't want a touchback in the region where
-			  average is above overall (40-60 YTG), and wouldn't mind as much where they are below (>60 YTG).
+			  their rate is above overall average (40-60 YTG), and wouldn't mind as much where they are below (>60 YTG).
 			  </p><p class="fs-5 ms-3">
 			  Downed punt rate also decays with YTG, and may follow similar reasoning as touchbacks. Unless a punt is very short 
 			  relative to YTG, it being downed implies a more favorable outcome than a touchback.</p>
@@ -9182,7 +9182,7 @@
 			  when a punter is focusing more on pinning the opponent deep instead of maximizing distance.
 			  </p><p class="fs-5 ms-3">
 			  An "Inside Twenty" metric provides a rough indication of pinning opponents. Landing an opponent inside their twenty 
-			  is more generally a good thing than some of the other binary metrics.
+			  is more generally a good thing than some of the other binary metrics, and more impressive from greater distance.
 			  </p>
 			</div>	
 		    <div class="col-md-6 col-xxl-3">
@@ -9212,7 +9212,7 @@
 			  Similarly, recall punt distance was <a href="#scrollspyPuntIntro">not linear</a> over the range of common YTG. 
 			  <b style="color:darkorange">Second</b> and <b style="color:green">Third</b> order 
 			  <a href="https://en.wikipedia.org/wiki/Polynomial_regression">polynomial fits</a> were compared to 
-			  <b style="color:royalblue">First</b> order (linear). Either of the higher orders are much better than 
+			  <b style="color:royalblue">First</b> order (linear). Either of the higher orders are better than 
 			  fitting a straight line, and are used in place of linear fits when comparing punter distances against YTG.
 			  </p>
 			</div><div class="col-md-6 col-xxl-4">
@@ -9229,7 +9229,7 @@
 			  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_0_Intro/bar_EPA.png" class="img-fluid" title="EPA for punting plays vs YTG, all punts from 2009-2021"/>					
 			</div>
 		    <div class="col-md-6 d-flex justify-content-evenly flex-column">
-			  <p class="fs-5 ms-3">EPA per punting play may not be very indicative of punter performance, as they don't chose when to punt.
+			  <p class="fs-5 ms-3">EPA per punting play may not be very indicative of punter performance, as punters don't chose when to punt.
 			  Punts from short distance will never be considered a <b class="text-success">success, EPA > 0</b>.
 			  And punts are generally not deemed favorably by a metric which is about <em>scoring</em> points, 
 			  not about effectively giving the ball back to opponents. I expect a punter's EPA/play for a given team might be 
@@ -9587,8 +9587,8 @@
 		   <br><b class="text-primary">Brett Kern's</b> Titans punts were separated from the rest of the dataset for comparison.</p>
 		   
 		   <p class="fs-5 ms-3">This dataset was used to get a feel for how to assess individual punter data. 
-		   I proposed some interpreations, and noticed some interesting trends over Brett Kern's career as a Titan. 
-		   I'll focus on a subset of the data, 2017-2019, Kern's Pro Bowl years. These will provide a standard of 
+		   I will propose interpreations, and demonstrate some interesting trends over Brett Kern's career as a Titan. 
+		   The section focuses on a subset of the data, 2017-2019, Kern's Pro Bowl years. These will provide a standard of 
 		   high-quality punting in <a href="#scrollspyPuntKernStone">Part II - Brett Kern vs Ryan Stonehouse</a>.</p>		   
 	   
 		   <div class="container-fluid pb-5 fs-5 text-warning" style="background-color:#232323">
@@ -9616,7 +9616,7 @@
 				 <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_1_Kern/METRICS1vToGo_2017-2019.png" class="img-fluid" title="Kern vs NFL, binaries vs YTG 1. 2017-2019"/>	
 			   </div>
 			   <div class="col-lg-6 col-xl-5 d-flex justify-content-around flex-column">		     
-				 <p><b>Binary metrics</b> (happened / didn't happen) were <a href="https://github.com/NBPub/TitanUp/tree/main/images/Punters_2_Kern_vs_Stone/big/">considered </a>
+				 <p><b>Binary metrics</b> (happened / didn't happen) were <a href="https://github.com/NBPub/TitanUp/tree/main/images/Punters_1_Kern/big/">considered </a>
 				 by estimating linear regressions and confidence intervals.<br><br>When the regression lines dip below 0%, they indicate an 
 				 <em class="text-danger">extremely low</em> likelihood of occurence, and conversely indicate <em class="text-success">almost all punts</em> 
 				 achieved the metric if over 100%.</p>
@@ -9659,7 +9659,7 @@
 			 <div class="row">
 			   <div class="row"><div class="col-xl-6 d-flex justify-content-evenly flex-column">
 			     <p class="text-center fw-bold ms-2 mt-3 text-decoration-underline">Kern Becomes an OOB Technician after 2016</p>
-				 <p class="ms-2">The plot below more directly (refer to binary metrics) shows that Kern punted OOB more often
+				 <p class="ms-2">The box plot more directly (refer to binary metrics) shows that Kern punted OOB more often
 				 than the rest of the NFL. The larger bars indicate a greater rate, and higher values indicate OOB punts from a greater distance.
 				 Interestingly, Kern was not punting like this before 2017.</p>
 			   </div><div class="col col-xl-6 text-center">				
@@ -9694,7 +9694,7 @@
 				   While 2020 looks to be better than 2017 by net yards, the Pro Bowl years ('17-'19) will continue to be Kern's golden range 
 				   with the Titans for consideration against Ryan Stonehouse. Also note that the Titans punted relatively little during the 2020 season. 
 				   What do you think?
-				 </p><p class="text-center">Check out the <a href="https://github.com/NBPub/TitanUp/tree/main/images/Punters_2_Kern_vs_Stone/big/" class="fw-bold">Full Picture.</a></p>			   
+				 </p><p class="text-center">Check out the <a href="https://github.com/NBPub/TitanUp/tree/main/images/Punters_1_Kern/big/" class="fw-bold">Full Picture.</a></p>			   
 			   </div><div class="col col-xl-6">	
 				 <div class="text-info text-center fw-bold mt-3 fs-6">Net Yards / Yards to go 2016-2021</div> 
 				 <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_1_Kern/NetYd-Boxen_2016-2021.png" class="img-fluid" style="margin:auto;" title="Kern vs NFL, Normalized net yards. 2016-2021"/>
@@ -9819,7 +9819,7 @@
 				 <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_1_Kern/EPAvToGo_2017-2019.png" class="img-fluid" title="Kern vs NFL, EPA vs YTG. 2017-2019"/>	   
 			   </div>
 			   <div class="row">
-			     <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_1_Kern/LogReg_Kern-OOB.png" class="img-fluid" title="Kern vs NFL, OOB rate vs YTG. 2009-2021"/>
+			     <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_1_Kern/LogReg_Kern-OOB.png" style="max-height:85vh;width:auto;margin:auto;" title="Kern vs NFL, OOB rate vs YTG. 2009-2021"/>
 			   </div>
 			 </div><hr class="border border-3"/>		 
 		   </div>
@@ -9832,16 +9832,16 @@
 		     <div class="row">
 			   <p class="fs-5 ms-3">
 			     In the <a href="#scrollspyPuntKern">previous section</a>, it was shown that Brett Kern outperformed other 
-				 NFL punters in his pro bowl years by comparing their <b>Normalized Net Yards</b> (net yards / yards to go). 
+				 NFL punters in his Pro Bowl years by comparing their <b>Normalized Net Yards</b> (net yards / yards to go). 
 			     It was also shown that Kern may have used OOB punts to realize his performance, and that his style was not typical of NFL punters.
 			   </p>	
 		     </div>		     		 
-			 <div class="row mt-3"><div class="col-6 d-flex justify-content-evenly flex-column">
+			 <div class="row mt-3"><div class="col-6 d-flex justify-content-around flex-column">
 			   <p class="fs-5 ms-3">
 			     This chart may help interpret the actual values for normalized net yards. Consider the following play desription: 
 				 <br><em class="text-muted mx-2 fs-6 fw-bold">(:25) 6-B.Kern punts 58 yards to NE 1, Center-48-B.Brinkley, downed by TEN-29-D.Cruikshank.</em><br><br>
-				 <a href="https://youtu.be/R9xKoauyyBc?t=618">That punt</a> was from 59 YTG, and netted 58 yds (0.98 normalized net yards). 
-				 That incredible punt was well above average.
+				 It was from 59 YTG, and netted 58 yds (0.98 normalized net yards). 
+				 <a href="https://youtu.be/R9xKoauyyBc?t=618">That incredible punt</a> was well above average.
 			   </p>	
 			 </div><div class="col-6">
 			   <figure class="figure"> <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/bar_punt_yds_percentile.png" class="img-fluid figure-img rounded" title="Punt distance distribution for all punts 2009-2021, with fractions marked"/>
@@ -9861,7 +9861,7 @@
 				<p class="ms-2">
 				  Stonehouse punts very differently than Kern. He almost never punts OOB, forces less fair catches, a punts more touchbacks. 
 				  The first two contribute to his much higher allowed return rate. The KDE shows that Stonehouse is typically punting from greater distance, 
-				  which might explain some of the variation (and is a <em>sad</em> picture of the Titans 2022 offense).
+				  which might explain some of the differences (and is a <em>sad</em> picture of the Titans 2022 offense).
 				</p>
 			 </div>
 			 <div class="row mt-3 align-items-center">
@@ -9977,8 +9977,8 @@
 				<p class="ms-2">
 				  While Stonehouse allows more returns than Kern did, he is punting the ball <em class="fw-bold text-danger">far.</em> 
 				  This is shown by his high gross yards. The returns and/or touchbacks bring Stonehouse's net yards to a very similar 
-				  distribution as Kern's. Recall these are both better than NFL average.
-				</p><p class="ms-2">The plots below show how these tendencies vary with punt distance. As would be expected, 
+				  distribution as Kern's. These are both better than NFL average.
+				</p><p class="ms-2">The regression plots show how these tendencies vary with punt distance. As would be expected, 
 				  Stonehouse's far punts are exemplified by his high gross yards when he has room, high YTG. At lower YTG, when a big punt would just 
 				  result in a touchback, Kern's OOB punting style gave him more net yards than Stonehouse. But at longer distances,
 				  Stonehouse is performing similarly or better than Kern regardless of returns/touchbacks.
@@ -10010,7 +10010,7 @@
 				<p class="ms-2"><span style="color:lime">Kern's seasons</span> show the relatively high net yards and 
 				low return rate presented in the previous section. The Pro Bowl subset, '17-'19, were three of his five best by 
 				normalized net yards. The other two, 2009 and 2020, were relatively low punting seasons (37,42).</p>		
-				<p class="ms-2"><span style="color:blue">Stonehouse's</span> solitary season further exemplifies his abnormally high net yards, 
+				<p class="ms-2"><span style="color:blue">Stonehouse's</span> solitary season exemplifies his abnormally high net yards, 
 				despite high return rate. This was accomplished by having high YTG, and booming the ball.</p>
 			   </div>
 			 </div>
@@ -10041,7 +10041,7 @@
 			 </div><div class="row">
 			   <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/LM-binaries2.png" class="img-fluid" title="Kern vs Stonehouse, Binaries vs YTG regressions 2"/>
 			 </div><div class="row mt-3">
-			   <p class="text-center text-info">Normalized Gross Yards vs Return Rate</p>
+			   <p class="text-center text-info fw-bold">Normalized Gross Yards vs Return Rate, <span class="text-primary">Stonehouse is ranked #2!</span></p>
 			   <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_2_Kern_vs_Stone/historical-normgross-v-returnrate.png" style="max-height:85vh;width:auto;margin:auto;" title="Historical normalized gross yards vs YTG. Top 5, Kern, and Stonehouse highlighted"/>
 			 </div>
 	    </div><hr class="border border-3 mb-3"/>			   
@@ -10265,8 +10265,9 @@
 	     <p class="text-muted ms-5">2022 play-by-play data: punt-attempts
 		 <br>Titans rookie punter, <b>Ryan Stonehouse</b>, was separated from the rest of the dataset for comparison.</p> 
 		 <p class="fs-5 ms-3">This section evaluates Titans rookie Ryan Stonehouse against all other NFL punters in 2022.
-		 The current focus compares him to the NFL average, where he performs well. As the 2022 season ends, I will add definitive
-		 individual punter analysis to see how he compares to the league's best.</p>
+		 The first part compares him to the NFL average, where he performs well. As the 2022 season ends, I will add definitive
+		 individual punter analysis to see how he compares to the league's best. For now, <a href="#PuntIndividual">some charts</a> 
+		 are displayed to evaluate individual punters in 2022.</p>
 		 
 		 <div class="container-fluid py-3" style="background-color:#232323">
 		   <div class="text-end me-2 mb-3"><em class="text-success">dataset updated on Wed Dec 28 11:18:45 2022</em></div>
@@ -10984,7 +10985,7 @@
 				 </p><p class="ms-2">
 				   Stonehouse punts the ball further than the rest of the NFL, as shown by his normalized gross yards. 
 				   Currently, this is his most impressive trait. However his net yards are not as high. 
-				   The strong punting of Stonehouse makes him really good, but when he finds a way to maintain distance and minimize returns, he will be elite. 
+				   The strong punting of Stonehouse makes him really good, but when he finds a way to maintain distance and minimize returns, he will become elite. 
 				   As shown in <a href="#scrollspyPuntKern">Part I</a>, Kern sent his punts OOB to achieve high net yards and inside twenty percentage.
 				 </p>					 
 			   </div>			   
@@ -11003,7 +11004,7 @@
 			   desipite allowing a lot of returns. By contrast, Kern achieved his best net yardage with low return rates. And it seemed 
 			   that better performance with lower return rate was an, at least weak, <a href="#ReturnLogReg">historical trend</a> in the NFL.
 			   <br><br>
-			   The chart below shows essentially no trend for the 2022 season. The best and worst punters by 
+			   The chart below shows no trend for the 2022 season. The best and worst punters by 
 			   normalized net yards span the range of return rate allowed. This may be expected with varied punting styles and 
 			   varied punting situations, as a single season's data is more influenced by team performance. 
 			   Stonehouse has allowed the most returns on his punts, but is still amongst the top of the league in netting his YTG.  
@@ -12527,14 +12528,15 @@
 			   </div></div>
 			 </div>
 			 <div class="row mt-2 text-warning fs-5"><div class="col-md-11 col-xl-8 mx-2">
-			   <p>As shown in <a href="#ReturnLogReg">Part I</a>, return rate increases with YTG, as some punters sacrifice hang time for distance. 
+			   <p>As shown in <a href="#ReturnLogReg">Part I</a>, return rate increases with YTG, as some punters seek to maximize distance above all alse. 
 			   The same relationship is seen for the 2022 season. The regression line/area shows the expected return rate, given a punter's average YTG. 
 			   While Stonehouse has had relatively high YTG, his return rate is still much higher than is typical for the league.<br><br>
 			   Let's look at <b style="color:darkred">Wishnowsky (SF)</b> and <b style="color:red">Townsend (KC)</b>, the tops in the league by 
 			   normalized net yards, as an another example. Wishnowsky has been the best in the league at minimizing returns, and on the surface 
-			   it seems he may be similar to Kern in style. But the graph shows his return rate is within expectation, given his shallower punts 
-			   than league average. Townsend has allowed an average return rate overall, but it is lower than expected for his average punting room. 
-			   His performance may be considered more impressive.
+			   it seems his style may be similar to Kern's. But the graph shows his return rate is within expectation, given his shallower punts. 
+			   Townsend has allowed an average return rate overall, but it is lower than expected for his average punting room. 
+			   His performance may be considered more impressive, as he is achieving similarly from greater distance. To his credit, Wishnowsky 
+			   is maximizing his opportunity, relative to someone like <b style="color:royalblue">Bailey (NE)</b>.
 			   </p>
 			 </div></div>			  
 			  <div class="row my-2 justify-content-center">
@@ -12546,8 +12548,8 @@
 				</div><div class="col-lg-4 col-xxl-6 text-warning fs-5 d-flex justify-content-around flex-column">
 				  <p class="ms-2">
 				    The regressions shown on the these charts were fit using the table data, which has already grouped and averaged 
-					punts by punter. Despite this limited data source, the fit shown for Return Rate vs YTG is basically the same 
-					as the logistic regression fit to <a href="#ReturnLogReg">all punting data</a> from 2009-2021, within range.
+					punts by 2022 punters. Despite this limited data source, the fit shown for Return Rate vs YTG is basically the same 
+					as the logistic regression fit to <a href="#ReturnLogReg">all punting data</a> from 2009-2021, within the YTG range presented.
 				  </p>
 				  <p class="ms-2">
 				    Additional charts with limited or no analysis are presented in the extras. See <a href="#PuntOther2Collapse">Punters 
@@ -12561,21 +12563,21 @@
 		
 			<div class="collapse" id="StoneCollapse"><div class="row justify-content-around">
 			  <div class="col-md-11 col-xxl-6 text-center text-info">
-				<b>Inside Twenty rate vs Yards to go</b>
-				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/in20_vs_ytg.png" class="img-fluid" title="2022 punts, inside opponent's 20 rate vs YTG"/>
-			  </div>
-			  <div class="col-md-11 col-xxl-6 text-center text-info">
-				<b>Punt Distribution by YTG. Wishnowsky vs Townsend vs Others</b>
-				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/punt_kde_2022_M.Wishnowsky_T.Townsend.png" class="img-fluid" title="2022 punts, Wishnowsky vs Townsend KDE"/>
-			  </div>			  
-			  <div class="col-md-11 col-xxl-6 text-center text-info">
 				<b>Net Yards vs Yards to go</b>
 				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/net_vs_ytg.png" class="img-fluid" title="2022 punts, Net Yards vs YTG"/>
 			  </div>
 			  <div class="col-md-11 col-xxl-6 text-center text-info">
 				<b>Gross Yards vs Yards to go</b>
 				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/gross_vs_ytg.png" class="img-fluid" title="2022 punts, Gross Yards vs YTG"/>
-			  </div>
+			  </div>			  
+			  <div class="col-md-11 col-xxl-6 text-center text-info">
+				<b>Punt Distribution by YTG. Wishnowsky vs Townsend vs Others</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/punt_kde_2022_M.Wishnowsky_T.Townsend.png" class="img-fluid" title="2022 punts, Wishnowsky vs Townsend KDE"/>
+			  </div>			
+			  <div class="col-md-11 col-xxl-6 text-center text-info">
+				<b>Inside Twenty rate vs Yards to go</b>
+				<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/Punters_3_Stone_vs_2022/individuals/extra/in20_vs_ytg.png" class="img-fluid" title="2022 punts, inside opponent's 20 rate vs YTG"/>
+			  </div>			  
 			  
 			  <div class="col-md-6 col-xl-4 text-center text-info">
 				<b>Out-of-bounds rate vs Yards to go</b>
