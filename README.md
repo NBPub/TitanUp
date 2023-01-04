@@ -17,7 +17,7 @@ Utilize sources of NFL data to practice processing, graphing, and interpreting l
 ## Data Sources
  - **[nflverse](https://github.com/nflverse/nflverse-data/releases/tag/pbp)** NFL play-by-play datasets
  - **[nflfastR](https://www.nflfastr.com/articles/field_descriptions.html)** play-by-play field descriptions
- - **[Puntalytics](https://github.com/Puntalytics/puntr/blob/master/R/processing.R)** punt data processing guidance
+ - **[Puntalytics](https://github.com/Puntalytics/puntr/blob/master/R/processing.R)** punt data processing guidance, punting metrics for play-by-play data
  - **[Pro-Football-Reference](https://www.pro-football-reference.com/teams/oti/career-av.htm)** Oilers/Titans career AV table, and general reference
 
 ## Feedback
@@ -37,6 +37,8 @@ The primary purpose of this repository is to host the HTML page containing my an
 I have uploaded code samples for my future self. They should emulate the processes used to populate the 
 analysis page, but are not meant to be "deployed". For example, various files are referenced by 
 raw strings and Path objects, and these have no relevance to the repository structure.
+
+*code updates in progress, may make one function to wrap them all for easy updates*
 
 ### [Graphing Functions](https://github.com/NBPub/TitanUp/tree/main/code/graphing/)
 The files are organized by the section of the page to which they relate. 
