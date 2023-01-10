@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import json
 
-# columns to keep
+
 punt_cols = ["play_id", "game_id", "home_team", "away_team", "posteam", "defteam", "game_date",
             "yardline_100", "yrdln", "desc", "play_type", "ydstogo", "touchback",
             "kick_distance", "ep", "epa", "wp", "wpa", "punt_blocked", "punt_inside_twenty",
@@ -13,8 +13,6 @@ punt_cols = ["play_id", "game_id", "home_team", "away_team", "posteam", "defteam
             "touchdown", "td_team", "temp", "roof"]
 p = Path(Path.cwd(), 'pbp data','play_by_play_2022.parquet')
 data = pd.read_parquet(p)
-# read from internet: year = 2022
-# data = pd.read_parquet(f'https://github.com/nflverse/nflverse-data/releases/download/pbp/play_by_play_{year}.parquet')
 
 # Gather punt data, list of punters
 punts = data.loc[data[data.punt_attempt==1].index, punt_cols] # could check "play column"
@@ -29,6 +27,7 @@ for val in punts.punter_player_name.unique():
             print('multiple teams for', val, team) 
         teams[val] = team[0]
         
+
 # Data Cleaning Functions
 # punter name and id to null punts, seems to be for blocked punts
 for val in punts[punts.punter_player_name.isnull()].index:
@@ -56,6 +55,7 @@ for val in ['yardline_100','punt_blocked','punt_inside_twenty','punt_in_endzone'
             'punt_downed','punt_fair_catch','kick_distance','net_yards', 'punt_returned']:
     punts.loc[:,val] = punts[val].astype(int)
 
+
 # save punts
 punts.to_parquet(Path(Path.cwd(), 'processed data','punts_2022.parquet'))
 
@@ -67,10 +67,10 @@ for val in data.columns:
             player_id_cols.append(val)
 
 player_id_cols.append('passer_player_id') # all passess
-player_id_cols.append('rusher_id') # all rushes, something about scrambles
+player_id_cols.append('rusher_id') # Rush something about scrambles
 player_id_cols.append('receiver_player_id') # all targets
 
-# Save relevant columns "check" for faster indexing later
+# Others, will have to find punter name later, print desc for hints
 test = pd.DataFrame()
 check = []
 print('Punters also did:')
@@ -84,6 +84,7 @@ for val in punters.values():
             
 # save punter other dataframe
 test.to_parquet(Path(Path.cwd(), 'processed data','punts_other_2022.parquet'))
+
 
 # calculate percentiles for EPA distributions
 measures = {}
@@ -100,35 +101,4 @@ with open(Path(Path.cwd(), 'processed data','percentiles_other_2022.json'), 'w',
     file.write(json.dumps(m2))
     
 del data, punts, test
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

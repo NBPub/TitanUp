@@ -3,7 +3,7 @@ from PIL import Image
 import numpy as np
 
 # folder with images
-p = Path(r'')
+p = Path(Path.cwd(), 'graphs','kern history')
 # subfolder with inverted images
 new_p = Path(p, f'{p.name} cropped')
 new_p.mkdir(exist_ok = True)

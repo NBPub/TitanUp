@@ -1,20 +1,45 @@
+# ex for saving HTML, changing to JSON of all HTML strings to load all together
+# with open(Path(Path.cwd(),'tables','ex.html'), 'w', encoding='utf-8') as page:
+#     page.write(table.style().to_html())
+
+
+
 import pandas as pd
 import numpy as np
 from pathlib import Path
 import json
 
-p = Path(Path.cwd(), 'processed data', 'TN_punts_2009-2021.parquet') # all Titans punts 2009-2021
-TNpunts = pd.read_parquet(p)   
-p = Path(Path.cwd(), 'processed data', 'punts_2022.parquet') # all 2022 punts
-punts = pd.read_parquet(p)
+p = Path(Path.cwd(), 'processed data')
+    # Load Advanced punting Metrics
+adv_cols = ['SHARP_RERUN','ea_punt_epa_above_expected',
+               'punter_player_name', 'posteam', 'yardline_100', 'season', 
+               'SHARP_RERUN_OF','SHARP_RERUN_PD']
+TN_adv = pd.read_parquet(Path(p,'TN_punts_2009-2021_adv.parquet')) # all Titans punts 2009-2021
+TN_adv = TN_adv.loc[:,adv_cols]
+notTN_adv = pd.read_parquet(Path(p,'notTN_punts_2009-2021_adv.parquet')) # all non-Titans punts 2009-2021
+notTN_adv = notTN_adv.loc[:,adv_cols]
+punt_adv = pd.read_parquet(Path(p,'punts_2022_adv.parquet')) # all Titans punts 2009-2021
+punt_adv = punt_adv.loc[:,adv_cols]
+# combine everything
+TN_adv = pd.concat([TN_adv, punt_adv])
+notTN_adv = pd.concat([notTN_adv,TN_adv[~TN_adv.punter_player_name.isin(['B.Kern','R.Stonehouse'])]])  # all other punts
+TN_adv=TN_adv[TN_adv.punter_player_name.isin(['B.Kern','R.Stonehouse'])] # Stonehouse, Kern '09-'21 punts
+notTN_adv.loc[:,'punter_player_name'] = 'Rest of NFL'
+TN_adv = pd.concat([TN_adv, notTN_adv])
 
+
+    # Start loading processed punting data
+TNpunts = pd.read_parquet(Path(p,'TN_punts_2009-2021.parquet')) # all Titans punts 2009-2021
+punts = pd.read_parquet(Path(p, 'punts_2022.parquet')) # all 2022 punts
 TNpunts = pd.concat([TNpunts, punts[punts.posteam == 'TEN']]) # Titans punts 2009-2022
 
 # common lists, define at top
 percent_rows = ['Touchback','Inside Twenty', 'Fair Catch', 'Out Of Bounds', 'Returned']
 comma_rows = ['Punts','Blocked']
+epa_rows = ['EPA/play','punt EPA*']
 metrics = ['punt_blocked', 'touchback', 'punt_inside_twenty', 'punt_fair_catch', 
            'punt_out_of_bounds','punt_returned','epa']
+adv_metrics = {'ea_punt_epa_above_expected':'punt EPA*', 'SHARP_RERUN':'Adj. Net*'}
 
 
 # Dict for all table strings
@@ -24,7 +49,7 @@ punting_tables = {}
 titans_punters = pd.DataFrame(TNpunts.value_counts(['season','punter_player_name']))
 titans_punters.reset_index(inplace=True)
 titans_punters.rename(columns={0:'Punts', 'punter_player_name':'Punter'},
-         inplace=True)
+          inplace=True)
 titans_punters.sort_values('season', inplace=True)
 
 punting_tables['titans_2009-2022'] = titans_punters.style\
@@ -34,7 +59,7 @@ punting_tables['titans_2009-2022'] = titans_punters.style\
         .set_table_styles([
             {'selector': 'tr:hover','props': [('background-color', '#9c9c2a')]},
             {'selector': 'td', 'props': 'font-size:1.25em;font-weight:bold;'}
-                       ])\
+                        ])\
         .set_table_attributes('class="table border border-2"').to_html()
 
     # B.Kern, R.Stonehouse, Rest of NFL
@@ -61,21 +86,28 @@ for val in TNpunts.punter_player_name.unique():
             top_table.loc[col.replace('punt_','').replace('_',' ').title(),val] = \
                 100*TNpunts[TNpunts.punter_player_name == val][col].mean()\
                 if col!='punt_blocked' else int(TNpunts[TNpunts.punter_player_name == val][col].sum())
+    for met,name in adv_metrics.items():
+        top_table.loc[name,val] = TN_adv[TN_adv.punter_player_name == val][met].mean()
 
 punting_tables['top_table'] = top_table.style\
         .format(formatter="{:,}", subset=(comma_rows,top_table.columns))\
         .format(formatter="{:.1f}%", subset=(percent_rows,top_table.columns))\
-        .format(formatter="{:.3f}", subset=('EPA/play',top_table.columns))\
+        .format(formatter="{:.1f}", subset=('Adj. Net*',top_table.columns))\
+        .format(formatter="{:.3f}", subset=(epa_rows,top_table.columns))\
         .background_gradient(cmap='bone', vmax=100, subset=(percent_rows,top_table.columns))\
         .background_gradient(cmap='Greens', subset=('EPA/play',top_table.columns), # high=0.5,
                              vmin=top_table.loc['EPA/play',:].min(),vmax=top_table.loc['EPA/play',:].max())\
+        .background_gradient(cmap='Greens', subset=('punt EPA*',top_table.columns),
+                             vmin=top_table.loc['punt EPA*',:].min(),vmax=top_table.loc['punt EPA*',:].max())\
+        .background_gradient(cmap='summer_r', subset=('Adj. Net*',top_table.columns),
+                             vmin=top_table.loc['Adj. Net*',:].min(),vmax=top_table.loc['Adj. Net*',:].max())\
         .set_table_styles([
             {'selector': 'td:hover','props': [('background-color', '#0097A6')]},
-            {'selector': 'td, th', 'props': 'font-size:1.25em;'}
                        ])\
         .set_table_attributes('class="table table-dark"').to_html()
         
 # B.Kern vs Rest of NFL (2017-2019), B.Kern vs Ryan Stonehouse
+kern_adv = TN_adv[(TN_adv.season > 2016) & (TN_adv.season < 2020)]
 TNpunts = TNpunts[(TNpunts.season > 2016) & (TNpunts.season < 2020)]
 kern_table = pd.DataFrame(columns = TNpunts.punter_player_name.unique())
 for val in TNpunts.punter_player_name.unique():
@@ -87,19 +119,27 @@ for val in TNpunts.punter_player_name.unique():
         else:
             kern_table.loc[col.replace('punt_','').replace('_',' ').title(),val] = 100*portion[col].mean()\
             if col!='punt_blocked' else int(portion[col].sum())
+    for met,name in adv_metrics.items():
+        kern_table.loc[name,val] = kern_adv[kern_adv.punter_player_name == val][met].mean()
 kern_stone = kern_table.copy()
 
 punting_tables['kern_table'] = kern_table.style\
         .format(formatter="{:,}", subset=(comma_rows,kern_table.columns))\
         .format(formatter="{:.1f}%", subset=(percent_rows,kern_table.columns))\
-        .format(formatter="{:.3f}", subset=('EPA/play',kern_table.columns))\
+        .format(formatter="{:.1f}", subset=('Adj. Net*',kern_table.columns))\
+        .format(formatter="{:.3f}", subset=(epa_rows,kern_table.columns))\
         .background_gradient(cmap='bone', vmax=100, subset=(percent_rows,kern_table.columns))\
         .background_gradient(cmap='Greens', subset=('EPA/play',kern_table.columns), #high=0.5,
                              vmin=kern_table.loc['EPA/play',:].min(),vmax=kern_table.loc['EPA/play',:].max())\
+        .background_gradient(cmap='Greens', subset=('punt EPA*',kern_table.columns),
+                             vmin=kern_table.loc['punt EPA*',:].min(),vmax=kern_table.loc['punt EPA*',:].max())\
+        .background_gradient(cmap='summer_r', subset=('Adj. Net*',kern_table.columns),
+                             vmin=kern_table.loc['Adj. Net*',:].min(),vmax=kern_table.loc['Adj. Net*',:].max())\
         .set_table_styles([
             {'selector': 'td:hover','props': [('background-color', '#0097A6')]},
                        ])\
         .set_table_attributes('class="table table-dark"').to_html()
+del kern_adv
 
     # R.Stonehouse vs B.Kern ('17-'19)
 val = 'R.Stonehouse'
@@ -112,13 +152,21 @@ for col in metrics:
     else:
         kern_stone.loc[col.replace('punt_','').replace('_',' ').title(),val] = 100*portion[col].mean()\
         if col!='punt_blocked' else int(portion[col].sum())
+for met,name in adv_metrics.items():
+    kern_stone.loc[name,val] = TN_adv[TN_adv.punter_player_name == val][met].mean()
+
 punting_tables['kern_stone'] = kern_stone.style\
         .format(formatter="{:,}", subset=(comma_rows,kern_stone.columns))\
         .format(formatter="{:.1f}%", subset=(percent_rows,kern_stone.columns))\
-        .format(formatter="{:.3f}", subset=('EPA/play',kern_stone.columns))\
+        .format(formatter="{:.1f}", subset=('Adj. Net*',kern_stone.columns))\
+        .format(formatter="{:.3f}", subset=(epa_rows,kern_stone.columns))\
         .background_gradient(cmap='bone', vmax=100, subset=(percent_rows,kern_stone.columns))\
         .background_gradient(cmap='Greens', subset=('EPA/play',kern_stone.columns), low=0.5,
                              vmin=kern_stone.loc['EPA/play',:].min(),vmax=kern_stone.loc['EPA/play',:].max())\
+        .background_gradient(cmap='Greens', subset=('punt EPA*',kern_stone.columns), low=0.5,
+                             vmin=kern_stone.loc['punt EPA*',:].min(),vmax=kern_stone.loc['punt EPA*',:].max())\
+        .background_gradient(cmap='summer_r', subset=('Adj. Net*',kern_stone.columns),low=0.5,
+                             vmin=kern_stone.loc['Adj. Net*',:].min(),vmax=kern_stone.loc['Adj. Net*',:].max())\
         .set_table_styles([
             {'selector': 'td:hover','props': [('background-color', '#0097A6')]},
                        ])\
@@ -129,6 +177,7 @@ del TNpunts, kern_stone, kern_table, top_table, titans_punters
 analyze = 'R.Stonehouse'
 punts.loc[punts[punts.punter_player_name=='R.Stonehouse'].index,'POI'] =analyze
 punts.loc[punts[punts.punter_player_name!='R.Stonehouse'].index,'POI'] ='Rest of NFL'
+TN_adv = TN_adv[TN_adv.season == 2022]
         
 stonehouse = pd.DataFrame(columns = punts.POI.unique())
 for val in punts.POI.unique():
@@ -139,18 +188,27 @@ for val in punts.POI.unique():
         else:
             stonehouse.loc[col.replace('punt_','').replace('_',' ').title(),val] = 100*punts[punts.POI == val][col].mean()\
                                                                 if col!='punt_blocked' else int(punts[punts.POI == val][col].sum())
+    for met,name in adv_metrics.items():
+        stonehouse.loc[name,val] = TN_adv[TN_adv.punter_player_name == val][met].mean()
+
 punting_tables['stonehouse2022'] = stonehouse.style\
         .format(formatter="{:,}", subset=(comma_rows,stonehouse.columns))\
         .format(formatter="{:.1f}%", subset=(percent_rows,stonehouse.columns))\
-        .format(formatter="{:.3f}", subset=('EPA/play',stonehouse.columns))\
+        .format(formatter="{:.1f}", subset=('Adj. Net*',stonehouse.columns))\
+        .format(formatter="{:.3f}", subset=(epa_rows,stonehouse.columns))\
         .background_gradient(cmap='bone', vmax=100, subset=(percent_rows,stonehouse.columns))\
         .background_gradient(cmap='Greens', subset=('EPA/play',stonehouse.columns), high=0.5,
                              vmin=stonehouse.loc['EPA/play',:].min(),vmax=stonehouse.loc['EPA/play',:].max())\
+        .background_gradient(cmap='Greens', subset=('punt EPA*',stonehouse.columns),
+                             vmin=stonehouse.loc['punt EPA*',:].min(),vmax=stonehouse.loc['punt EPA*',:].max())\
+        .background_gradient(cmap='summer_r', subset=('Adj. Net*',stonehouse.columns),
+                             vmin=stonehouse.loc['Adj. Net*',:].min(),vmax=stonehouse.loc['Adj. Net*',:].max())\
         .set_table_styles([
             {'selector': 'td:hover','props': [('background-color', '#0097A6')]},
             {'selector': 'td, th', 'props': 'font-size:1.1em;'}
                        ])\
         .set_table_attributes('class="table table-dark"').to_html()
+del TN_adv
         
 # load epa percentiles, team dict, and check columns
 p = Path(Path.cwd(), 'processed data', 'percentiles_other_2022.json')
@@ -163,6 +221,12 @@ measures = {key:np.array(val) for key,val in measures.items()}
 # load team_colors
 teamcolors = pd.read_csv(Path(Path.cwd(),'pbp data', 'teamcolors.csv'))
 teamcolors.set_index('team',inplace=True,drop=True)
+# FIX LA --> LAR
+# teamcolors.rename(index = {'LA':'LAR'}, inplace=True)
+# teamcolors.drop_duplicates(inplace=True)
+teamfix = [punter for punter in teams if teams[punter] =='LA']
+for punter in teamfix:
+    teams[punter] = 'LAR'
 
         # Punt Attempts 2022
 att_table = pd.DataFrame(punts.value_counts('punter_player_name'))
@@ -240,6 +304,48 @@ punting_tables['normgross2022'] = test2.style\
                        ])\
         .set_table_attributes('class="table table-dark"').to_html()
 del test, att_table, stonehouse, test2
+
+    # Punter Advanced Metrics, 2022
+p = Path(Path.cwd(), 'processed data', 'punts_2022_adv.parquet')
+punts = pd.read_parquet(p)
+
+test = pd.DataFrame()
+k=1
+for val in punters.keys():
+    sub = punts[punts.punter_player_name == val]
+    if sub.shape[0] >= 30: # 30 PUNT MINIMUM FOR PUNTER FOR SEASON
+        test.loc[k,'Team'] = teams[val]
+        test.loc[k,'Name'] = val
+        test.loc[k,'Punt EPA*'] = sub.ea_punt_epa_above_expected.mean()
+        test.loc[k,'Adj. Net*'] = sub.SHARP_RERUN.mean()
+        test.loc[k,'Punts'] = int(sub.shape[0])
+        test.loc[k,'Open Field'] = sub.SHARP_RERUN_PD.mean()
+        test.loc[k,'Pin Deep'] = sub.SHARP_RERUN_OF.mean()
+        k+=1
+test.Punts = test.Punts.astype('int')
+test.sort_values('Punt EPA*', ascending=False,inplace=True)   
+
+def row_color(v):
+    return [f'background-color:{teamcolors.loc[v.Team,"color2"]};color:{teamcolors.loc[v.Team,"color"]}']+['']*6
+
+punting_tables['adv2022'] = test.style\
+        .format_index(lambda v: '')\
+        .format(formatter="{:.1f}", subset=['Adj. Net*', 'Pin Deep','Open Field'])\
+        .format(formatter="{:.3f}", subset='Punt EPA*')\
+        .background_gradient(cmap='PiYG', subset='Adj. Net*', )\
+        .background_gradient(cmap='PiYG', subset='Punt EPA*')\
+        .background_gradient(cmap='bone_r', subset='Punts')\
+        .background_gradient(cmap='coolwarm_r', subset='Pin Deep')\
+        .background_gradient(cmap='coolwarm_r', subset='Open Field')\
+        .apply(row_color, axis=1)\
+        .set_table_styles([
+            {'selector': 'td:hover','props': [('background-color', '#0097A6')]},
+            {'selector': 'td','props': [('padding', '0.5em 1em')]},
+            {'selector': 'th', 'props': [('position','sticky'),('top',0)]},
+                       ])\
+        .set_table_attributes('class="table table-dark"').to_html() 
+del test    
+    
 
     # Punters are Players! 2022
 # load processed data
@@ -462,6 +568,8 @@ ptack.replace(0,np.nan, inplace = True)
 ptack.dropna(how='all', inplace = True)
 ptack = ptack if not ptack.empty else None 
 
+
+
 tackle_fix = {}
 for key,val in p_also['tackling'].items():
     if val!='':
@@ -506,9 +614,5 @@ punting_tables['PuntTit_tackling'] = ptack.style\
 p = Path(Path.cwd(), 'tables', 'punting_tables.json')
 with open(p, 'w', encoding='utf-8') as file:
     file.write(json.dumps(punting_tables)) 
-    
-# ex for saving HTML, changing to JSON of all HTML strings
-# with open(Path(Path.cwd(),'tables','ex.html'), 'w', encoding='utf-8') as page:
-#     page.write(table.style().to_html())
     
 del punts, p_also, punting_tables, ptack, prec, prush, ppass, measures

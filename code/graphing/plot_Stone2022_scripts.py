@@ -65,8 +65,8 @@ def punt_att_swarm(punts, teams, analyze): # Punter Attempts across League (boxe
         colors = abs(colors - np.concatenate((np.ones((colors.shape[0],3)), np.zeros((colors.shape[0],1))), axis=1))
         for i,val in enumerate(ax.collections[0].get_offsets()):
             team = wer.team[i]
-            # correct = -1 if team in [] else 1  # reverse certain team labels
-            correct = 1
+            correct = -1 if team in ['NYJ','CAR','WAS','ATL','LV','MIA','BAL','CIN', 'KC','GB'] else 1  # reverse certain team labels
+            # correct = 1
             plt.annotate(team,(val[0], 1.15*val[1]*correct), ha='center', va='center', color=tuple(colors[i]))       
 
         plt.savefig(f'graphs/stonehouse/{savename}')
@@ -74,7 +74,7 @@ def punt_att_swarm(punts, teams, analyze): # Punter Attempts across League (boxe
         plt.close()
         
 def punt_distance_boxen(punts, analyze):
-    savename = 'stonehouse_nfl_box.png' if analyze == 'R.Stonehouse' else f'{analyze}_nfl_box_2022.png'
+    savename = 'distance_box.png' if analyze == 'R.Stonehouse' else f'{analyze}_nfl_box_2022.png'
     punts.loc[punts[punts.punter_player_name==analyze].index,'POI'] =analyze
     punts.loc[punts[punts.punter_player_name!=analyze].index,'POI'] ='Rest of NFL'
     
@@ -143,7 +143,7 @@ def punt_distance_boxen(punts, analyze):
         plt.close()
         
 def punt_distance_reg(punts, analyze):
-    savename = 'stonehouse_nfl_reg.png' if analyze == 'R.Stonehouse' else f'{analyze}_nfl_reg_2022.png'
+    savename = 'distance_reg.png' if analyze == 'R.Stonehouse' else f'{analyze}_nfl_reg_2022.png'
     punts.loc[punts[punts.punter_player_name==analyze].index,'POI'] =analyze
     punts.loc[punts[punts.punter_player_name!=analyze].index,'POI'] ='Rest of NFL'
     
@@ -182,7 +182,7 @@ def punt_distance_reg(punts, analyze):
         # plt.show()
         plt.close()
         
-def individual_punter_reg(data, col1, col2, savename): # table data, x column, y column
+def individual_punter_reg(data, col1, col2, savename, reg_line): # table data, x column, y column
     settings = {'figure.figsize':[8, 8], 'figure.facecolor':'#232323', 'figure.edgecolor':'w',  \
   'axes.titlecolor':'w','axes.labelcolor':'w','axes.edgecolor':'w', 'xtick.color':'w','ytick.color':'w',
   'axes.grid':False,'axes.labelweight':'bold','axes.titleweight':'bold', 'axes.titlesize':'x-large','axes.labelsize':'x-large',
@@ -198,7 +198,8 @@ def individual_punter_reg(data, col1, col2, savename): # table data, x column, y
     
     with plt.rc_context(settings):
         # Regression line and Scatter
-        sns.regplot(data=data,x=col1,y=col2, scatter=False, color='k',line_kws={'alpha':0.3}, order=1)
+        if reg_line:
+            sns.regplot(data=data,x=col1,y=col2, scatter=False, color='k',line_kws={'alpha':0.3}, order=1)
         plt.scatter(x=data[col1],y=data[col2], s=data['punts']*3, c=data['color'], edgecolors=data['c2'])
         bounds = plt.axis()
         
@@ -231,6 +232,6 @@ def individual_punter_reg(data, col1, col2, savename): # table data, x column, y
                             )         
     
             named.loc[val,:] = data.loc[val,:]
-        plt.savefig(f'graphs/stonehouse/{savename}')
+        plt.savefig(f'graphs/stonehouse/individuals/{savename}')
     # plt.show()
     plt.close()

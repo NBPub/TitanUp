@@ -5,9 +5,11 @@ import matplotlib.pyplot as plt
 # import pandas as pd
 import numpy as np
 
+
 def punt_distance_reg_order(punts, metric):
     plt.figure(figsize=(6,4), facecolor='gainsboro')
-    ax = sns.barplot(data=punts, x='yardline_100', y=metric, width=4, errwidth=0.2, color='k', errcolor='magenta', alpha=0.4)   
+    ax = sns.barplot(data=punts, x='yardline_100', y=metric, width=4, errwidth=0.2, color='k', errcolor='magenta', alpha=0.4)
+    
     
     bounds = ax.get_xbound()
     ax.set_xlim(bounds[0]+12,bounds[1]) 
@@ -32,9 +34,12 @@ def punt_distance_reg_order(punts, metric):
         plt.savefig('graphs/Intro/gross_yds_curvefit',dpi=300,bbox_inches='tight')
     else:
         ax.set_ylabel('Punt Yds - Net', fontweight='bold',fontsize='large', color='teal')
-        plt.savefig('graphs/Intro/net_yds_curvefit',dpi=300,bbox_inches='tight') 
+        plt.savefig('graphs/Intro/net_yds_curvefit',dpi=300,bbox_inches='tight')
+        
     # plt.show()
     plt.close()
+
+
 
 def punt_att(xdata):
     settings = {'figure.figsize':[6, 6],'figure.facecolor':'gainsboro', 'figure.edgecolor':'k',  \
@@ -123,7 +128,7 @@ def epa_bar(punts):
     ax.set_ylim(-.5,.5)
     offset = bounds[1]-100
     
-    # fill colors, get means for each bin then collapse. could improve
+    # dumb way to fill colors, get means for each bin then collapse
     x = {}
     for val in np.arange(40,100,4):
         x[val] = 'green' if punts[(punts.yardline_100>=val)&(punts.yardline_100<(val+4))].epa.mean() > 0 else 'red'
@@ -143,7 +148,7 @@ def epa_bar(punts):
             ax.fill_between((val+offset,keys[i+1]+offset),-0.5,0, color='red',alpha=0.15)
         else:
             ax.fill_between((val+offset,keys[i+1]+offset),0,0.5, color='seagreen',alpha=0.15)
-    ax.set_title('Punt EPA vs Yds to go', y=0.8, loc='center', fontweight='bold')
+    ax.set_title('EPA vs Yds to go', y=0.8, loc='center', fontweight='bold')
     ax.set_ylabel('EPA', fontweight='bold',fontsize='large')
     ax.set_xlabel('Yards to go', labelpad=1)
     
@@ -176,6 +181,8 @@ def two_bar(punts, metrics, scale, savename):
     plt.savefig(f'graphs/Intro/{savename}',dpi=300,bbox_inches='tight')
     # plt.show()
     plt.close()    
+
+
 
 def binary_LogReg(punts, metrics):
     # Hard Code text, yscale settings for now
@@ -243,6 +250,7 @@ def KernReturn_LogReg(sub, divider, metric):
         
 def NormDist_RetRate_historical(test, metric):
     # labels
+    
     if metric == 'norm_net':
         kern = test[test.name == 'B.Kern'].sort_values(metric,ascending=False)[0:5]
         kern2 = test[test.name == 'B.Kern'].sort_values(metric,ascending=False)[5:]
@@ -254,13 +262,12 @@ def NormDist_RetRate_historical(test, metric):
       'xtick.color':'k', 'xtick.labelsize': 'large', 'font.weight':'bold', 'savefig.dpi': 300, 'savefig.bbox':'tight'}   
             
     stone = test[test.name == 'R.Stonehouse']
-    top_5 = test.sort_values(metric, ascending=False)[0:5]
-    top_5.reset_index(drop=True,inplace=True)
-    # remove Stonehouse from top 5 labels, should at least check for Kern, too.
-    if not top_5[top_5.name == 'R.Stonehouse'].empty:
-        ind = top_5[top_5.name == 'R.Stonehouse'].index[0]
+    top_3 = test.sort_values(metric, ascending=False)[0:5]
+    top_3.reset_index(drop=True,inplace=True)
+    if not top_3[top_3.name == 'R.Stonehouse'].empty:
+        ind = top_3[top_3.name == 'R.Stonehouse'].index[0]
         ind = f'{ind+1}. '
-        top_5 = top_5[top_5.name != 'R.Stonehouse']
+        top_3 = top_3[top_3.name != 'R.Stonehouse']
     else:
         ind = ''
         
@@ -278,7 +285,7 @@ def NormDist_RetRate_historical(test, metric):
         x_pos = np.linspace(bounds[0][0],bounds[0][1], 20)
         y_pos = np.linspace(bounds[1][0],bounds[1][1], 20)
                     
-        plt.annotate(f"{ind}{stone['name'][stone.index[0]]}", (stone['return_rate'],stone[metric]+.003), 
+        plt.annotate(f"{ind}{stone['name'][stone.index[0]]}", (stone['return_rate'],stone[metric]-.01), 
                      ha='center',va='bottom', color='darkorange', fontweight='bold', fontsize='large')
         
         plt.text(x_pos[1],y_pos[16],'B.Kern', color='magenta',fontsize='large')
@@ -291,15 +298,16 @@ def NormDist_RetRate_historical(test, metric):
         
         plt.text(x_pos[1],y_pos[3],f"NFL('09-'22)\n{test.shape[0]} punter seasons", color='grey',fontsize='large')
         
-        va = 'bottom' # don't need to do this reversing for Net Yds plot
-        for val in top_5.index:
+        va = 'top'
+        for val in top_3.index:
             va = 'bottom' if va == 'top' else 'top'
             correct = -1 if va == 'top' else 1
-            ax.plot(top_5['return_rate'][val],top_5[metric][val],'o', color='green')
-            plt.annotate(f"{val+1}. {top_5.name[val]} '{str(top_5.season[val])[-2:]}", 
-                         (top_5['return_rate'][val],top_5[metric][val]+correct*.003), 
+            ax.plot(top_3['return_rate'][val],top_3[metric][val],'o', color='green')
+            plt.annotate(f"{val+1}. {top_3.name[val]} '{str(top_3.season[val])[-2:]}", 
+                         (top_3['return_rate'][val],top_3[metric][val]+correct*.003), 
                          ha='left',va=va, color='green', fontweight='bold')
 
+        
         plt.xlabel('Return Rate')
         if metric == 'norm_net':
             plt.ylabel('Net Yards / Yards to go')
@@ -308,5 +316,5 @@ def NormDist_RetRate_historical(test, metric):
             plt.ylabel('Gross Yards / Yards to go')
             plt.savefig('graphs\kern v stonehouse\historical-normgross-v-returnrate.png')            
         
-    plt.show()
+    # plt.show()
     plt.close()

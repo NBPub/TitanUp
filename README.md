@@ -8,7 +8,7 @@ Repository for code persistence and page hosting. Click the link below to visit 
 - [Motivation](#motivation)
 - [Data Sources](#data-sources)
 - [Feedback](#feedback)
-- [Code Notes](#code)
+- [Code Notes](#code-notes)
 - [Future?](#future)
 
 ## Motivation
@@ -54,4 +54,10 @@ One file loads, processes, and sends data to another, which generates and saves 
 Pillow functions used to modify images created by the graphing functions:
  - **Crop:** crops image based on background color, used for graphs that couldn't save with a `tight bbox`
  - **Invert:** inverts image, used for aesthetics
+ 
+## Future
+
+ * add to playground, if findings are significant, maybe make a new page.
+ * try interactive plotly graphs, hover labels to provide a "new" style for these charts
+ * create Plotly/Dash app using PBP data as source. Provide various processing and graphing features.
 

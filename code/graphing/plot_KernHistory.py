@@ -23,28 +23,28 @@ for val in ['yardline_100','punt_blocked','punt_inside_twenty','punt_in_endzone'
 punts.loc[punts[punts.punter_player_name != 'B.Kern'].index, 'punter_player_name'] = 'Rest of NFL'
  
 
-# # Punt Attempts vs Yds to go (KDE+bars)
+# Punt Attempts vs Yds to go (KDE+bars)
 punt_att(punts, (2017,2020))    
 
 # OOB/YTG vs year and Net/YTG vs year, boxen
-year_boxen(punts,'punt_out_of_bounds',(2014,2022))
+# year_boxen(punts,'punt_out_of_bounds',(2014,2022))
 year_boxen(punts,'net_yards',(2016,2022))
 
     # LM Plots
 # Big Binary Regressions
 sub = punts.loc[:,['yardline_100','season','punter_player_name', 
-                   'punt_inside_twenty','touchback','punt_out_of_bounds', 
-                   'punt_downed','punt_fair_catch']]
+                    'punt_inside_twenty','touchback','punt_out_of_bounds', 
+                    'punt_downed','punt_fair_catch']]
 binary_reg(sub)
 del sub
 
 # Punt Distance Regressions
 punt_distance_reg(punts.loc[:,['yardline_100','season','punter_player_name', 
-                               'kick_distance','net_yards']])
+                                'kick_distance','net_yards']])
 
 # EPA/WPA Regressions
 xPA_reg(punts.loc[:,['yardline_100','season','punter_player_name', 'epa','wpa']])
 
-Return rate vs YTG comes from other plot_Punts
+## Return rate vs YTG comes from other plot_Punts
 
 

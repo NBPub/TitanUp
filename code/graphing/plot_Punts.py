@@ -25,6 +25,8 @@ punts.reset_index(drop=True, inplace=True)
 for val in ['yardline_100','punt_blocked','punt_inside_twenty','punt_in_endzone','punt_out_of_bounds',
             'punt_downed','punt_fair_catch','kick_distance','net_yards','punt_returned']:
     punts.loc[:,val] = punts[val].astype(int)
+ 
+
 
 p = Path(Path.cwd(), 'processed data', 'percentiles_other_2022.json')
 with open(p, 'r') as file:
@@ -34,6 +36,7 @@ punters = measures.pop('punters')
 teams = measures.pop('teams')
 # measures = {key:np.array(val) for key,val in measures.items()} 
 del measures
+
 
 # Order justification for Net/Gross Yds vs Yds to go fit
 punt_distance_reg_order(punts,'net_yards')
@@ -64,13 +67,13 @@ sub = punts[(punts.yardline_100<91) & (punts.yardline_100>39)]
 binary_LogReg(sub, ['punt_inside_twenty', 'punt_fair_catch'])
 binary_LogReg(sub, ['punt_out_of_bounds', 'touchback', 'punt_downed'])
 
-# Kern vs NFL, 2021 and prior with cutoff year for two Kerns
-KernReturn_LogReg(sub, 2016, 'punt_out_of_bounds')
-KernReturn_LogReg(sub, 2016, 'punt_returned')
+# Kern vs NFL, 2021 and prior with cutoff year for two Kerns. doesn't change with 2022 updates
+# KernReturn_LogReg(sub, 2016, 'punt_out_of_bounds')
+# KernReturn_LogReg(sub, 2016, 'punt_returned')
 
 
 
-# Normalized Net,Gross yards vs Return Rate for punter seasons (scatter + reg)
+# Normalized Net yards vs Return Rate for punter seasons (scatter + reg)
 test = pd.DataFrame(columns = ['name','season','return_rate', 'norm_net'])
 k = 1
 for val in punts.punter_player_name.unique():

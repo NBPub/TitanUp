@@ -7,6 +7,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as path_effects 
 
+# Graphs using Puntalytics Data
+
     # Intro
 # punt EPA vs Yds to Go, par graph
 def epa_bar(punts):   
@@ -236,7 +238,7 @@ def stone_nfl_pEPA_reg(punts): # pEPA vs Yds to go regression, Blue/Orange schem
         # plt.show()
         plt.close()
 
-def individual_punter_adv(data, col1, col2, savename, xlabel, ylabel): # individual plots, see Stone
+def individual_punter_adv(data, col1, col2, savename, xlabel, ylabel, reg_line): # individual plots, see Stone
     settings = {'figure.figsize':[8, 8], 'figure.facecolor':'#232323', 'figure.edgecolor':'w',  \
   'axes.labelcolor':'w','axes.edgecolor':'w', 'xtick.color':'w','ytick.color':'w',
   'axes.labelweight':'bold','axes.labelsize':'x-large','ytick.labelsize':'large', 'xtick.labelsize':'large',
@@ -245,7 +247,8 @@ def individual_punter_adv(data, col1, col2, savename, xlabel, ylabel): # individ
     check_factor = 0.25   
     with plt.rc_context(settings):
         # Regression line and Scatter
-        sns.regplot(data=data,x=col1,y=col2, scatter=False, color='k',line_kws={'alpha':0.3}, order=1)
+        if reg_line:
+            sns.regplot(data=data,x=col1,y=col2, scatter=False, color='k',line_kws={'alpha':0.3}, order=1)
         plt.scatter(x=data[col1],y=data[col2], s=data['punts']*3, c=data['color'], edgecolors=data['c2'])
         bounds = plt.axis()
         
@@ -295,24 +298,24 @@ historical_SHARP(data)
     
 
     ## Kern History - pEPA/Sharp bar, pEPA regressions
-sub = data[data.season.isin(range(2009,2022))]
-sub.loc[sub[sub.punter_player_name != 'B.Kern'].index,'punter_player_name'] = 'Rest of NFL'
-kern_history_bar(sub)
-sub = sub[sub.season.isin(range(2017,2020))]
-kern_history_pEPA_reg(sub)
+#  sub = data[data.season.isin(range(2009,2022))]
+# sub.loc[sub[sub.punter_player_name != 'B.Kern'].index,'punter_player_name'] = 'Rest of NFL'
+# kern_history_bar(sub)
+# sub = sub[sub.season.isin(range(2017,2020))]
+# kern_history_pEPA_reg(sub)
 
 
     ## Stonehosue vs Kern (17-19) - pEPA regressions <--- not too useful, focus on table
-sub = sub[sub.punter_player_name == 'B.Kern']
-stone = data[data.punter_player_name == 'R.Stonehouse']
-sub = pd.concat([sub, stone])
-kern_stone_pEPA_reg(sub, 'ea_punt_epa_above_expected')
-kern_stone_pEPA_reg(sub, 'SHARP_RERUN')
+# sub = sub[sub.punter_player_name == 'B.Kern']
+# stone = data[data.punter_player_name == 'R.Stonehouse']
+# sub = pd.concat([sub, stone])
+# kern_stone_pEPA_reg(sub, 'ea_punt_epa_above_expected')
+# kern_stone_pEPA_reg(sub, 'SHARP_RERUN')
 
 
     ## Stonehouse vs NFL 2022
 data = data[data.season == 2022]
-stone_nfl_pEPA_reg(data)
+# stone_nfl_pEPA_reg(data.copy())
 
 # Individual Punter Plots
 p = Path(Path.cwd(), 'processed data', 'percentiles_other_2022.json')
@@ -342,36 +345,49 @@ for val in data.punter_player_name.unique():
         test.loc[k,'norm_net'] = np.mean(sub.NetYards/sub.yardline_100)
         test.loc[k,'SHARP_RERUN'] = sub.SHARP_RERUN.mean()
         test.loc[k,'SHARP_RERUN_OF'] = sub.SHARP_RERUN_OF.mean()
-        test.loc[k,'SHARP_RERUN_PD'] = sub.SHARP_RERUN_PD.mean()
+        test.loc[k,'SHARP_RERUN_PD'] = sub.SHARP_RERUN_PD.mean()       
         test.loc[k,'YardLineAfter_For_Opponent'] = sub.SHARP_RERUN_PD.mean()
         test.loc[k,'yardline_100'] = sub.yardline_100.mean()       
         test.loc[k,'pEPA'] = sub.ea_punt_epa_above_expected.mean()
         k+=1
+
+test.loc[:,'PD_OF'] = test.SHARP_RERUN_PD / test.SHARP_RERUN_OF
         
 for val in ['punts','return_yds','YardLineAfter_For_Opponent','yardline_100']:
     test[val] = test[val].astype('int')
     
+# # pEPA vs SHARP
+# individual_punter_adv(test, 'SHARP_RERUN', 'pEPA', 'SRR_pEPA', 
+#                       'SHARP RERUN aka Adj Net*', 'Punt EPA*', True)    
 
-individual_punter_adv(test, 'SHARP_RERUN', 'pEPA', 'SRR_pEPA', 
-                      'SHARP RERUN aka Adj Net*', 'Punt EPA*')    
+# # PD vs OF
+# individual_punter_adv(test, 'SHARP_RERUN_OF', 'SHARP_RERUN_PD', 'nSRR-OF_PD', 
+#                       'Open Field Adj. Net*', 'Pin Deep Adj. Net*', False)   
 
-individual_punter_adv(test, 'SHARP_RERUN_OF', 'SHARP_RERUN_PD', 'nSRR-OF_PD', 
-                      'Open Field Adj. Net*', 'Pin Deep Adj. Net*')   
+# SHARP vs PD/OF
+individual_punter_adv(test, 'PD_OF', 'SHARP_RERUN', 'SRR-PD_over_OF', 
+                      'Pin Deep / Open Field', 'Adj. Net*', False)  
 
-individual_punter_adv(test, 'yardline_100', 'YardLineAfter_For_Opponent', 'YTG_OppYL', 
-                      'Yards to go', 'Resulting Opponent YTG')  
+# # Resulting YL vs Starting YL
+# individual_punter_adv(test, 'yardline_100', 'YardLineAfter_For_Opponent', 'YTG_OppYL', 
+#                       'Yards to go', 'Resulting Opponent YTG', False)  
 
-individual_punter_adv(test, 'return_rate', 'return_yds', 'Return-Rate_Yd', 
-                      'Return Rate', 'Return Yd Allowed') 
+# # Return Yds allowed vs Return Rate
+# individual_punter_adv(test, 'return_rate', 'return_yds', 'Return-Rate_Yd', 
+#                       'Return Rate', 'Return Yd Allowed', False) 
 
-individual_punter_adv(test, 'gross', 'return_yds', 'test', 
-                      'Gross Yards', 'Return Yd Allowed')   
+# # Return Yds allowed vs Gross Yards
+# individual_punter_adv(test, 'gross', 'return_yds', 'Gross_RetYds', 
+#                       'Gross Yards', 'Return Yd Allowed', True)   
 
-individual_punter_adv(test, 'norm_net', 'pEPA', 'Norm-Net_pEPA', 
-                        'Normalized Net', 'Punt EPA*')     
-    
+# # pEPA vs Normalized Net
+# individual_punter_adv(test, 'norm_net', 'pEPA', 'Norm-Net_pEPA', 
+#                         'Normalized Net', 'Punt EPA*', True)     
+
+# SHARP vs Normalized Net    
 individual_punter_adv(test, 'norm_net', 'SHARP_RERUN', 'Norm-Net_SRR', 
-                        'Normalized Net', 'Adj. Net*')     
-    
+                        'Normalized Net', 'Adj. Net*', True)     
+
+# SHARP vs Return Rate    
 individual_punter_adv(test, 'return_rate', 'SHARP_RERUN', 'Return-Rate_SRR', 
-                      'Return Rate', 'Adj. Net*')
+                      'Return Rate', 'Adj. Net*', True)

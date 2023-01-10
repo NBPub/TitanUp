@@ -16,9 +16,8 @@ teamcolors.loc['NYJ','color4'] = '#000000'
     # Part III - Stonehouse 2022 plots
 p = Path(Path.cwd(), 'processed data','punts_2022.parquet')
 punts = pd.read_parquet(p)   
-# analyze = 'R.Stonehouse'
-# punts.loc[punts[punts.punter_player_name=='R.Stonehouse'].index,'POI'] =analyze
-# punts.loc[punts[punts.punter_player_name!='R.Stonehouse'].index,'POI'] ='Rest of NFL'
+analyze = 'R.Stonehouse'
+
 
 p = Path(Path.cwd(), 'processed data', 'percentiles_other_2022.json')
 with open(p, 'r') as file:
@@ -29,18 +28,29 @@ teams = measures.pop('teams')
 # measures = {key:np.array(val) for key,val in measures.items()} 
 del measures
 
+# FIX LA --> LAR
+# teamcolors.rename(index = {'LA':'LAR'}, inplace=True)
+# teamcolors.drop_duplicates(inplace=True)
+teamfix = [punter for punter in teams if teams[punter] =='LA']
+for punter in teamfix:
+    teams[punter] = 'LAR'
+
+
 # Punter Attempts across League (boxen + swarm)
+# better to just figure out on jupyter
 punt_att_swarm(punts, teams, 'R.Stonehouse')
     
 # Punt Attempts vs Yds to go (KDE)
 punt_att_KDE(punts, ['R.Stonehouse'])
-punt_att_KDE(punts, ['M.Wishnowsky', 'T.Townsend'])  
+punt_att_KDE(punts, ['M.Wishnowsky', 'T.Townsend'])
+# punt_att_KDE(punts, 'T.Townsend')       
+
     
 # Net/Gross Yds vs Yds to go (boxen)
 punt_distance_boxen(punts, 'R.Stonehouse')
     
 # Net/Gross Yds vs Yds to go (LM plot)
-punt_distance_reg(punts)
+punt_distance_reg(punts, 'R.Stonehouse')
 
 # Individual Punter Plots
 test = pd.DataFrame()
@@ -50,10 +60,9 @@ for val in punts.punter_player_name.unique():
     if sub.shape[0] >= 30: # 30 PUNT MINIMUM FOR PUNTER FOR SEASON
         test.loc[k,'name'] = val
         test.loc[k,'team'] = teams[val]
-        test.loc[k,'color'] = teamcolors['color'][teams[val]]
-        test.loc[k,'c2'] = teamcolors['color2'][teams[val]]
-        test.loc[k,'c3'] = teamcolors['color3'][teams[val]]
-        test.loc[k,'c4'] = teamcolors['color4'][teams[val]]
+        test.loc[k,'color'] = teamcolors.loc[teams[val], 'color']
+        test.loc[k,'c2'] = teamcolors.loc[teams[val], 'color2']
+
         
         test.loc[k,'punts'] = int(sub.shape[0])
         test.loc[k,'return_rate'] = sub.punt_returned.mean()
@@ -74,26 +83,32 @@ for val in ['return_rate','norm_net','norm_gross','YTG','touchback','in20',
             'OOB','downed','FC','net','gross']:
     test[val] = test[val].astype('float')
 
-    # featured
-# Net vs Returns
-individual_punter_reg(test, 'return_rate', 'norm_net', 'stonehouse_nfl_norm-net_vs_return-rate.png')
-# Gross vs Returns
-individual_punter_reg(test, 'return_rate', 'norm_gross', 'stonehouse_nfl_norm-gross_vs_return-rate.png')
-# Returns vs YTG
-individual_punter_reg(test, 'YTG', 'return_rate', 'stonehouse_nfl_return-rate_vs_ytg.png')
 
-    # other
+
+
+# Net vs Returns, specify (data, x,y, savename)
+individual_punter_reg(test, 'return_rate', 'norm_net', 'norm-net_vs_return-rate.png', True)
+
+# Gross vs Returns
+individual_punter_reg(test, 'return_rate', 'norm_gross', 'norm-gross_vs_return-rate.png', True)
+
+# Returns vs YTG
+individual_punter_reg(test, 'YTG', 'return_rate', 'return-rate_vs_ytg.png', True)
+
+    # others
 # OOB vs YTG
-individual_punter_reg(test, 'YTG', 'OOB', 'stonehouse_nfl_OOB_vs_ytg.png')
-# In20 vs YTG
-individual_punter_reg(test, 'YTG', 'in20', 'stonehouse_nfl_in20_vs_ytg.png')
+individual_punter_reg(test, 'YTG', 'OOB', 'extra/OOB_vs_ytg.png', False)
+# Inside 20 vs YTG
+individual_punter_reg(test, 'YTG', 'in20', 'extra/in20_vs_ytg.png', True)
+
+individual_punter_reg(test, 'YTG', 'downed', 'extra/downed_vs_ytg.png', False)
+individual_punter_reg(test, 'YTG', 'FC', 'extra/FC_vs_ytg.png', False)
+individual_punter_reg(test, 'YTG', 'touchback', 'extra/touchback_vs_ytg.png', False)
+individual_punter_reg(test, 'YTG', 'net', 'extra/net_vs_ytg.png', True)
+individual_punter_reg(test, 'YTG', 'gross', 'extra/gross_vs_ytg.png', True)
+individual_punter_reg(test, 'touchback', 'norm_net', 'extra/norm-net_vs_touchback.png', False)
+
     
-individual_punter_reg(test, 'YTG', 'downed', 'downed_vs_ytg.png')
-individual_punter_reg(test, 'YTG', 'FC', 'FC_vs_ytg.png')
-individual_punter_reg(test, 'YTG', 'touchback', 'touchback_vs_ytg.png')
-individual_punter_reg(test, 'YTG', 'net', 'net_vs_ytg.png')
-individual_punter_reg(test, 'YTG', 'gross', 'gross_vs_ytg.png')
-individual_punter_reg(test, 'touchback', 'norm_net', 'norm-net_vs_touchback.png')
     
 
 
