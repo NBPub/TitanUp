@@ -10,8 +10,8 @@
   <style>
 .carousel-control-next{filter: invert(100%);}
   </style>  
-  <body>
-  	<nav class="navbar navbar-expand-md bg-light border sticky-top">
+  <body data-bs-spy="scroll" data-bs-target="#navId">
+  	<nav class="navbar navbar-expand-md bg-light border sticky-top" id="navId">
 	  <div class="container-fluid">
 		<a class="navbar-brand" href="#">
 		  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/favicon.png" style="width:30px;"/>
@@ -26,16 +26,16 @@
 			  <a class="nav-link dropdown-toggle fw-bold border-end text-primary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">•</a>
 			  <ul class="dropdown-menu">
 				<li class="nav-item"><a class="dropdown-item fw-bold" href="#scrollspyEPA">Team EPA</a></li>
-				  <li class="nav-item ms-3"><a class="dropdown-item" href="#scrollspyEPAtable">Table</a></li>
+				  <li class="nav-item ms-3"><a class="dropdown-item" href="#EPAtable">Table</a></li>
 				  <li><hr class="dropdown-divider"></li>
 				<li class="nav-item"><a class="dropdown-item fw-bold" href="#scrollspyDriveAnalysis">Drive Analysis</a></li>
-				  <li class="nav-item ms-3"><a class="text-dark text-decoration-none mx-3" href="#scrollspyDriveAnalysistable_O">Off</a>|<a class="text-dark text-decoration-none mx-3" href="#scrollspyDriveAnalysistable_D">Def</a></li>
+				  <li class="nav-item ms-3"><a class="text-dark text-decoration-none mx-3" href="#DriveAnalysistable_O">Off</a>|<a class="text-dark text-decoration-none mx-3" href="#DriveAnalysistable_D">Def</a></li>
 				  <li><hr class="dropdown-divider"></li>
 				<li class="nav-item"><a class="dropdown-item fw-bold" href="#scrollspyDriveResults">Drive Results</a></li>
-				  <li class="nav-item ms-3"><a class="text-dark text-decoration-none mx-3" href="#scrollspyDriveResultstable_O">Off</a>|<a class="text-dark mx-3 text-decoration-none" href="#scrollspyDriveResultstable_D">Def</a></li>
+				  <li class="nav-item ms-3"><a class="text-dark text-decoration-none mx-3" href="#DriveResultstable_O">Off</a>|<a class="text-dark mx-3 text-decoration-none" href="#DriveResultstable_D">Def</a></li>
 				  <li><hr class="dropdown-divider"></li>
 				<li class="nav-item"><a class="dropdown-item fw-bold" href="#scrollspyPenalty">Penalties</a></li>
-				  <li class="nav-item ms-3"><a class="dropdown-item" href="#scrollspyPenaltytable">Table</a></li>				  
+				  <li class="nav-item ms-3"><a class="dropdown-item" href="#Penaltytable">Table</a></li>				  
 			  </ul>
 			</li>						
 			<li class="nav-item"><a class="nav-link fw-bold border-start text-primary" href="#scrollspyTitansAV">Titan Career AV</a></li>			
@@ -120,21 +120,21 @@
 			  Offense was split into passes, runs, and scrambles. Defense was split into 
 			  pass and runs. And finally Special Teams plays were categorized into "Offense", where a team is trying to score or will be receiving the ball,
 			  and "Defense" where a team is doing the opposite. Those values were largely influenced by 
-			  <a href="#PuntIndividual">punter</a> (Def) and <a href="#scrollspyDriveResultstable_O">kicker</a> (Off) performance.
+			  <a href="#PuntIndividual">punter</a> (Def) and <a href="#DriveResultstable_O">kicker</a> (Off) performance.
 			</p><p class="ms-4">
 			  EPA was calculated on a per play basis, and also as a season total. For most categories, these metrics are <a href="https://github.com/NBPub/TitanUp/tree/main/images/team_metrics/XY/regcheck_EPA_total-perplay">interchangeable</a>.
-			  But for scrambles, where teams have more spread in play counts, the totals and averages diverge. For the most part, EPA data
-			  is presented on a per play basis, but totals are shown in some of the graphs below.			
+			  But for scrambles, where teams have more spread in play counts, the totals and averages <a href="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/scramble/OScrambleEPA_total_perplay_2022.png">are not proportional</a>. 
+			  For the most part, EPA data is presented on a per play basis, but totals are shown in some of the graphs.			
 			<p class="ms-4">
 			  The graph shows the average EPA/play for each team on Defense and Offense. All the EPA data is presented in a table below; and 
-			  additional graphs are displayed after the table. 
+			  additional graphs are shown after the table. 
 			</p>
 		  </div>
 		  <div class="col-md-10 col-xl-6">
 			<img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Oepa_Depa_2022.png" class="img-fluid" title="update later"/ style="margin:auto;">
 		  </div>
 <hr>		  
-		  <div class="col-xl-7 my-3" id="scrollspyEPAtable">
+		  <div class="col-xl-7 my-3" id="EPAtable">
 		    <div class="text-center mt-3"><b class="text-light fs-4">Team EPA 2022</b></div><br>
 		    <p class="mx-2 fs-5">Table is currently sorted by <b>Def_EPA</b>, click other columns to sort table. 
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
@@ -1396,35 +1396,44 @@
 			</div>
 		  </div>
 		  <div class="col-md-10 col-xl-5 text-info text-center fw-bold fs-5">
-		    <div class="text-light fs-6 text-end"><em>slideshow</em> - use arrows to browse graphs</div>
+		    <div class="text-light fs-6 text-end mt-5"><em>slideshow</em> - use arrows to browse graphs</div>
 			<div id="carouselEPA" class="carousel slide" data-bs-theme="dark">
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
-				  <p class="mt-5">Team Defense EPA (1/6)</p>
+				  <p >Team Defense EPA (1/8)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Def_EPA_total_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p class="mt-5">Team Defense EPA - Pass vs Run (2/6)</p>
+				  <p>Team Defense EPA - Pass vs Run (2/8)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Depa_run_pass_2022.png" class="d-block w-100" title="...">
 				</div>				
 				<div class="carousel-item">
-				  <p class="mt-5">Team Offense EPA (3/6)</p>
+				  <p>Team Offense EPA (3/8)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Off_EPA_total_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p class="mt-5">Team Offense EPA - Pass vs Run (4/6)</p>
+				  <p>Team Offense EPA - Pass vs Run (4/8)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Oepa_run_pass_2022.png" class="d-block w-100" title="...">
-				</div>					
+				</div>		
 				<div class="carousel-item">
-				  <p class="mt-5">Team Offense Scramble EPA (5/6)</p>
-				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Off_EPA_scramble_total_2022.png" class="d-block w-100" title="...">
-				</div>				
-				<div class="carousel-item">
-				  <p class="mt-5">Special Teams EPA - Def vs Off (6/6)		  
+				  <p>Special Teams EPA - Def vs Off (5/8)		  
 				  <br><span class="fs-6">Def - giving ball / preventing score | Off - getting ball / trying to score</span>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/ST_Oepa_Depa_2022.png" class="d-block w-100" title="..."><br>		  
-				</div>
+				</div>				
+				<div class="carousel-item">
+				  <p>Team Offense Scramble EPA (6/8)</p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Off_EPA_scramble_total_2022.png" class="d-block w-100" title="...">
+				</div>	
+				<div class="carousel-item">
+				  <p>Team Offense Scramble EPA/play (7/8)</p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/EPA_perplay_graphs/Scramble_EPA_2022.png" class="d-block w-100" title="...">
+				</div>		
+				<div class="carousel-item">
+				  <p>Last Scramble Graph (8/8)</p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/scramble/OScramble_Count_EPA_2022.png" class="d-block w-100" title="...">
+				</div>					
+
 			  </div>			
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselEPA" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" style="color:khaki"></span>
@@ -1436,11 +1445,12 @@
 		</div></div>
 <hr>			
 		<div class="row mt-3" id="scrollspyDriveAnalysis">
+		  <p class="text-center fs-4 text-decoration-underline fw-bold">per Drive Metrics</p>
 		  <div class="col-md-4 col-xl-6 fs-5 d-flex justify-content-evenly flex-column">
 		    <p class="mx-2">&nbsp;&nbsp;
-			  Team drive results were analyzed for both Offense and Defense. Yards (<b>Yds</b>), points(<b>Pts</b>), 
+			  Team drive results were analyzed for both Offense and Defense. Yards (<b>Yds</b>), points (<b>Pts</b>), 
 			  and penalty yards (<b>penalty_yds</b>) per drive are obvious in their intepretation. 
-			  <b>TOP</b> is average time of possesion in seconds.* <em class="ms-3 fs-6"> bigger/smaller isn't obviously better for Off/Def</em>
+			  <b>TOP</b> is average time of possesion in seconds.
 			  <br><br>Drives resulting in an immediate punt (<b>three_out</b>), without an offensive score (<b>nopts</b>),
 			  or without positive yards (<b>noyds</b>) are also presented.
 			</p><p class="mx-2">
@@ -1448,7 +1458,8 @@
 			  They were not much better in other metrics.
 			</p><p class="mx-2">
 			  Team offenses and defenses are presented 
-			  in the next two tables. They are currently sorted by <b>Pts</b> per drive.
+			  in the next two tables. They are currently sorted by <b>Pts</b> per drive.<br>
+			  <em class="ms-3 fs-6">*Note: bigger/smaller isn't obviously better for Off/Def TOP*</em>
 			</p>
 		  </div>
 		  <div class="col-md-8 col-xl-6 text-info text-center fs-5 fw-bold">
@@ -1456,21 +1467,29 @@
 			<div id="carouselDrives" class="carousel slide" data-bs-theme="dark">
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
-				  <p>Points per drive (1/4)</p>
+				  <p>Points per drive (1/6)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Opts_Dpts_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Yards per drive (2/4)</p>
+				  <p>Yards per drive (2/6)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Oyds_Dyds_2022.png" class="d-block w-100" title="...">
 				</div>				
 				<div class="carousel-item">
-				  <p>Three and Out vs No Scores, Offense (3/4)</p>
+				  <p>Three and Out vs No Scores, Offense (3/6)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Off_nopt_3out_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Three and Out vs No Scores, Defense (4/4)</p>
+				  <p>Three and Out vs No Scores, Defense (4/6)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Def_nopt_3out_2022.png" class="d-block w-100" title="...">
 				</div>	
+				<div class="carousel-item">
+				  <p>Points vs Time of possesion, Offense (5/6)</p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Off_TOP_Pts_2022.png" class="d-block w-100" title="...">
+				</div>	
+				<div class="carousel-item">
+				  <p>Points vs Time of possesion, Defense (6/6)</p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Def_TOP_Pts_2022.png" class="d-block w-100" title="...">
+				</div>					
 			  </div>			
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselDrives" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon"></span>
@@ -1480,7 +1499,7 @@
 			  </button>			 
 			</div>		  
 		   </div>			  
-		  <div class="col" id="scrollspyDriveAnalysistable_O">
+		  <div class="col" id="DriveAnalysistable_O">
 		    <p class="ms-2 text-light fs-5 fw-bold mt-3">2022 Team Offense, Drive Analysis			
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -2731,7 +2750,7 @@
 
 			</div>
 		  </div>		  
-		  <div class="col" id="scrollspyDriveAnalysistable_D">
+		  <div class="col" id="DriveAnalysistable_D">
 		    <p class="ms-2 text-light fs-5 fw-bold mt-3">2022 Team Defense, Drive Analysis			
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -3909,18 +3928,23 @@
 	  		  	
 <hr>			
 		</div><div class="row mt-3" id="scrollspyDriveResults">
+		  <p class="text-center fs-4 text-decoration-underline fw-bold">per Drive Results</p>
 		  <div class="col-xl-4 fs-5 d-flex justify-content-evenly flex-column">
 			<p class="mx-2">&nbsp;&nbsp;
 			  Drives were analyzed more simply by their results. Their various outcomes are summarized on the following tables 
 			  for Teams' Offenses and Defenses.
 			</p><p class="mx-2">
-			  They are currently sorted by Drives resulting in the opponent's touchdown, 
+			  They are currently sorted by Drives resulting in the opponent's touchdown (Opp TD), 
 			  which is <em style="background-color:#8e0152;color:white;" class="px-1">very bad</em> for a team on offense, and 
-			  <em style="background-color:darkgreen;color:white;" class="px-1">very good</em> for a team on defense.
-			  I am currently checking my methods, but if I haven't made a mistake, NE is absurd, and the correlation for Off/Def is absurder.
+			  <em style="background-color:darkgreen;color:white;" class="px-1">very good</em> for a team on defense. Earlier, I had made 
+			  an error that resulted in extra counting of Opp TDs and an uncanny correlation for Off / Def 
+			  (most teams on a line from <b>boring</b> to <b>wild</b> in the graph shown below).
+			  Now the data looks much more reasonable, and a little less fun.<br> 
+			  <em class="ms-3 fs-6">*Note: <b>Return TD</b> column is total and not per drive. Kickoff return TDs were not counted as drives,
+			  and punt return TDs were marked as drives resulting in a <b>Punt</b>.*</em>
 		    </p>
 		  </div>	
-		  <div class="col-md-12 col-xl-8" id="scrollspyDriveResultstable_O">
+		  <div class="col-md-12 col-xl-8" id="DriveResultstable_O">
 		    <p class="text-center text-light fs-5 fw-bold mt-3">2022 Team Offense, Drive Results
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -5249,7 +5273,7 @@
 
 			</div>
 		  </div>	  	  
-		  <div class="col-md-12 col-xl-8" id="scrollspyDriveResultstable_D">
+		  <div class="col-md-12 col-xl-8" id="DriveResultstable_D">
 		    <p class="text-center text-light fs-5 fw-bold mt-3">2022 Team Defense, Drive Results
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -6603,23 +6627,29 @@
 			<div id="carouselDriveResults" class="carousel slide" data-bs-theme="dark">
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
-				  <p>Drives Resulting in Opponent Touchdowns - Off vs Def (1/3)
-					<em class="ms-5 fs-6">why are these so well correlated???</em>
+				  <p>Drives Resulting in Opponent Touchdowns - Off vs Def (1/4)
+					<em class="ms-5 fs-6">no longer correlated . . .</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/ODres_OppTD_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Offensive Drives Resulting in Field Goals vs Missed Field Goals (2/3)
+				  <p>Offensive Drives Resulting in Field Goals vs Missed Field Goals (2/4)
 				    <em class="ms-5 fs-6">AKA evaluating kickers for fantasy</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_FG_FGmiss_2022.png" class="d-block w-100" title="...">
 				</div>				
 				<div class="carousel-item">
-				  <p>Defensive Drives Resulting in Punts vs Turnovers (3/3)				  
+				  <p>Defensive Drives Resulting in Punts vs Turnovers (3/4)				  
 				    <em class="ms-5 px-2 fs-6" style="background-color:black;color:grey">Raiders . . . &#128551;</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Dres_turnover_punt_2022.png" class="d-block w-100" title="..."><br>		  
 				</div>
+				<div class="carousel-item">
+				  <p>Offensive Drives Resulting in Punts vs Turnovers (4/4)				  
+				    <em class="ms-5 px-2 fs-6" style="background-color:#005a8b;color:#b0b7bc">Lions . . . &#128562;</em>
+				  </p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_turnover_punt_2022.png" class="d-block w-100" title="..."><br>		  
+				</div>				
 			  </div>			
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselDriveResults" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon"></span>
@@ -6633,14 +6663,17 @@
 <hr>	   
 	   <div class="row mt-3 fs-5" id="scrollspyPenalty">   
 		  <div class="col-12">
+		    <p class="text-center fs-4 text-decoration-underline fw-bold">Penalties</p>
 			<p class="mx-3">&nbsp;&nbsp;
 			  Committed penalties were tallied for Teams' Offense, Defense, and Special Teams. Total EPA sacrificed to penalties was 
-			  calculated for each phase, and total penalty yards were added for Offense and Defense.<br>
+			  calculated for each phase, and total penalty yards were added for Offense and Defense. The table is currently sorted by
+			  <b>Def_penalty_EPA_given</b>, which is how much EPA a team's defense gave to their opponent's on offense. Low numbers show more 
+			  disciplined / lucky / sneaky teams.<br>
 			  <em class="fs-6">*I did not clean this data thoroughly, declined penalties 
 			  and other discrepancies likely contribute to penalty metrics.</em>
 			</p>
 		  </div>
-		  <div class="col-xl-6 fs-6" id="scrollspyPenaltytable"> 
+		  <div class="col-xl-6 fs-6" id="Penaltytable"> 
 			<p class="text-center text-light fs-5 fw-bold mt-3">2022 Team Penalties
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
