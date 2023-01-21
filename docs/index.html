@@ -62,9 +62,9 @@
     
 	<div class="container-fluid mt-3">
 	 <h1 class="ms-2">Titans Focused NFL Data Analysis</h1>
-	   <p class="fs-5 ms-3">
+	   <p class="fs-5 ms-3">&nbsp;&nbsp;
 	   Welcome to my page. Use the <b>Contents</b> links below or the top navigation bar to move through the sections.
-	   The page is readable, but not optimized for mobile screens. On a large screen, some portions may look better in portrait orientation.<br>
+	   The page is readable, but not optimized for mobile screens. On a large screen, some portions may look better in portrait orientation.
 	   Python was used for data analysis, graphs, and page creation itself. See the <a href="https://github.com/NBPub/TitanUp">repository</a> 
 	   for more information on the code and process. It can also be used to <a href="">submit</a> feedback.</p>
 
@@ -73,20 +73,25 @@
 		 <li class="fw-bold"><a href="#scrollspyAck">Acknowledgements</a></li>
 		   <ul><li class="ms-2 mb-3">Data used to power analysis.</li></ul>	   
 		 <li class="fw-bold"><a href="#scrollspyTeamReview">2022 Regular Season Review</a></li>
-		   <ul><li class="ms-2 mb-3">Team metrics for the 2022 regular season</li></ul>
+		   <ul><li class="ms-2">Team evaluations using metrics calculated from NFL play-by-play data for the 2022 regular season</li>
+		     <ul><li class="ms-2"><a href="#scrollspyEPA">Expected Points Added</a></li>
+			 <li class="ms-2"><a href="#scrollspyDriveAnalysis">Metrics per Drive</a></li>
+			 <li class="ms-2"><a href="#scrollspyDriveResults">Results per Drive</a></li>
+			 <li class="ms-2 mb-3"><a href="#scrollspyPenalty">Penalties</a></li></ul>
+		   </ul>
 	     <li class="fw-bold"><a href="#scrollspyPuntIntro">Titan Careers by AV</a></li>
 		   <ul><li class="ms-2 mb-3">Nostalgic exercise identifying Titans legends using Pro-Football-Reference franchise AV metric normalized by games played.</li></ul>
 		 <li class="fw-bold"><a href="#scrollspyPunt">Punter Analysis</a></li>
 		   <ul><li class="ms-2 mb-3">Extensive punter data analysis using NFL play-by-play data. Focus on former and current Titans, Brett Kern and Ryan Stonehouse. 
-								     <em>Puntalytics advanced punting metrics addition in progress</em></li>	 
+								     <em>Puntalytics advanced punting metrics not up-to-date for 2022</em></li>	 
 		       <li class=" ms-2 fw-bold"><a href="#scrollspyPuntKern">Part I</a></li>
 				 <ul><li class="ms-2 mb-3">Brett Kern's Titans history</li></ul>
 			   <li class="ms-2 fw-bold"><a href="#scrollspyPuntKernStone">Part II</a></li>
-			     <ul><li class="ms-2 mb-3">Kern's Pro Bowl years ('17-19) vs Ryan Stonehouse</li></ul>
+			     <ul><li class="ms-2">Kern's Pro Bowl years ('17-19) vs Ryan Stonehouse</li></ul>
 				 <ul><li class="ms-2 mb-3">Punters are Players, Titans - <a href="#scrollspyPuntOther1">Bonus Stats</a></li></ul>
 			   <li class="fw-bold"><a href="#scrollspyPuntRStone">Part III</a></li>
-			     <ul><li class="ms-2 mb-3">Ryan Stonehouse's season relative to the NFL</li></ul>
-				 <ul><li class="ms-2 mb-3"><a href="#PuntIndividual">Individual Punter Analysis</a></li></ul>
+			     <ul><li class="ms-2">Ryan Stonehouse's season relative to the NFL</li></ul>
+				 <ul><li class="ms-2"><a href="#PuntIndividual">Individual Punter Analysis</a></li></ul>
 				 <ul><li class="ms-2 mb-3">Punters are Players, 2022 - <a href="#scrollspyPuntOther2">Bonus Stats</a></li></ul>
 		   </ul>
 		 <li class="fw-bold"><a href="#scrollspyPG">Playground</a></li>
@@ -104,7 +109,17 @@
 <hr class="mb-5">	 
 	 <h1 class="ms-2 mt-5" id="scrollspyTeamReview">Regular Season Review - Team Metrics 2022</h1>
 		 <p class="text-muted ms-5">2022 play-by-play dataset, regular season only</p>		   
-		 <p class="fs-5 ms-3">Link + discussion for each section<br>Data Processing<br>Other ideas, per play or series analysis</p>
+		 <p class="fs-5 mx-3">&nbsp;&nbsp;
+		   Team performance for 2022 is guaged in a few different ways. Expected Points Added for Offense, Defense, and Special Teams
+		   is considered in total and on a per play basis in the <a href="#scrollspyEPA" class="fw-bold">first section</a>. Plays with penalties were excluded.
+		   <br><br>
+		   Next, each drive is analyzed for each team on Offense and Defense. The <a href="#scrollspyDriveAnalysis" class="fw-bold">second section</a>
+		   focuses on the numerical data, Yards, Points, and Time of Possesion per drive. The various drive outcomes are examined in the 
+		   <a href="#scrollspyDriveResults" class="fw-bold">third section</a>. In the future, I might take a similar approach to team performance on a per series basis.
+		   <br><br>
+		   Lastly, <a href="#scrollspyPenalty" class="fw-bold">penalties</a> and their consequences were tallied. Penalty data is presented from 
+		   the persepective of the committing team, and not the team benefitting.
+		 </p>
 	   
 	   
 	   <div class="container-fluid py-5 text-warning" style="background-color:#232323">
@@ -1430,7 +1445,7 @@
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/EPA_perplay_graphs/Scramble_EPA_2022.png" class="d-block w-100" title="...">
 				</div>		
 				<div class="carousel-item">
-				  <p>Last Scramble Graph (8/8)</p>
+				  <p>Scramble EPA/play vs Scramble Count (8/8)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/scramble/OScramble_Count_EPA_2022.png" class="d-block w-100" title="...">
 				</div>					
 
@@ -1445,7 +1460,7 @@
 		</div></div>
 <hr>			
 		<div class="row mt-3" id="scrollspyDriveAnalysis">
-		  <p class="text-center fs-4 text-decoration-underline fw-bold">per Drive Metrics</p>
+		  <p class="text-center fs-4 text-decoration-underline fw-bold">per Drive Analysis</p>
 		  <div class="col-md-4 col-xl-6 fs-5 d-flex justify-content-evenly flex-column">
 		    <p class="mx-2">&nbsp;&nbsp;
 			  Team drive results were analyzed for both Offense and Defense. Yards (<b>Yds</b>), points (<b>Pts</b>), 
@@ -1459,7 +1474,7 @@
 			</p><p class="mx-2">
 			  Team offenses and defenses are presented 
 			  in the next two tables. They are currently sorted by <b>Pts</b> per drive.<br>
-			  <em class="ms-3 fs-6">*Note: bigger/smaller isn't obviously better for Off/Def TOP*</em>
+			  <em class="mx-1 fs-6">*Note: bigger/smaller isn't obviously better for Off/Def TOP*</em>
 			</p>
 		  </div>
 		  <div class="col-md-8 col-xl-6 text-info text-center fs-5 fw-bold">
@@ -1499,7 +1514,7 @@
 			  </button>			 
 			</div>		  
 		   </div>			  
-		  <div class="col" id="DriveAnalysistable_O">
+		  <div class="col mx-2" id="DriveAnalysistable_O">
 		    <p class="ms-2 text-light fs-5 fw-bold mt-3">2022 Team Offense, Drive Analysis			
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -2750,7 +2765,7 @@
 
 			</div>
 		  </div>		  
-		  <div class="col" id="DriveAnalysistable_D">
+		  <div class="col mx-2" id="DriveAnalysistable_D">
 		    <p class="ms-2 text-light fs-5 fw-bold mt-3">2022 Team Defense, Drive Analysis			
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -3940,7 +3955,7 @@
 			  an error that resulted in extra counting of Opp TDs and an uncanny correlation for Off / Def 
 			  (most teams on a line from <b>boring</b> to <b>wild</b> in the graph shown below).
 			  Now the data looks much more reasonable, and a little less fun.<br> 
-			  <em class="ms-3 fs-6">*Note: <b>Return TD</b> column is total and not per drive. Kickoff return TDs were not counted as drives,
+			  <em class="mx-1 fs-6">*Note: <b>Return TD</b> column is total and not per drive. Kickoff return TDs were not counted as drives,
 			  and punt return TDs were marked as drives resulting in a <b>Punt</b>.*</em>
 		    </p>
 		  </div>	
@@ -5273,7 +5288,7 @@
 
 			</div>
 		  </div>	  	  
-		  <div class="col-md-12 col-xl-8" id="DriveResultstable_D">
+		  <div class="col-md-12 col-xxl-8" id="DriveResultstable_D">
 		    <p class="text-center text-light fs-5 fw-bold mt-3">2022 Team Defense, Drive Results
 			  <em style="background-color:darkgreen;color:white;" class="px-3 fs-6">good</em> 
 			  <em style="background-color:white;color:black;" class="px-3 fs-6">OK</em> 
@@ -6622,34 +6637,52 @@
 
 			</div>
 		  </div>
-		  <div class="col text-info text-center fs-5 fw-bold">
+		  <div class="col-lg-7 col-xxl-4 text-info text-center fs-5 fw-bold">
 		    <div class="text-light fs-6 text-end mt-3"><em>slideshow</em> - use arrows to browse graphs</div>
 			<div id="carouselDriveResults" class="carousel slide" data-bs-theme="dark">
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
-				  <p>Drives Resulting in Opponent Touchdowns - Off vs Def (1/4)
+				  <p>Drives Resulting in Opponent Touchdowns - Off vs Def (1/7)
 					<em class="ms-5 fs-6">no longer correlated . . .</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/ODres_OppTD_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Offensive Drives Resulting in Field Goals vs Missed Field Goals (2/4)
+				  <p>Offensive Drives Resulting in Field Goals vs Missed Field Goals (2/7)
 				    <em class="ms-5 fs-6">AKA evaluating kickers for fantasy</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_FG_FGmiss_2022.png" class="d-block w-100" title="...">
 				</div>				
 				<div class="carousel-item">
-				  <p>Defensive Drives Resulting in Punts vs Turnovers (3/4)				  
+				  <p>Defensive Drives Resulting in Punts vs Turnovers (3/7)				  
 				    <em class="ms-5 px-2 fs-6" style="background-color:black;color:grey">Raiders . . . &#128551;</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Dres_turnover_punt_2022.png" class="d-block w-100" title="..."><br>		  
 				</div>
 				<div class="carousel-item">
-				  <p>Offensive Drives Resulting in Punts vs Turnovers (4/4)				  
+				  <p>Offensive Drives Resulting in Punts vs Turnovers (4/7)				  
 				    <em class="ms-5 px-2 fs-6" style="background-color:#005a8b;color:#b0b7bc">Lions . . . &#128562;</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_turnover_punt_2022.png" class="d-block w-100" title="..."><br>		  
-				</div>				
+				</div>	
+				<div class="carousel-item">
+				  <p>Defensive Drives Resulting in Touchdowns vs Field goals (5/7)				  
+				    <em class="ms-5 px-2 fs-6" style="background-color:red;color:gold">SF was good</em>
+				  </p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Dres_TD_FG_2022.png" class="d-block w-100" title="..."><br>		  
+				</div>	
+				<div class="carousel-item">
+				  <p>Offensive Drives Resulting in Touchdowns vs Field goals (6/7)							  
+				    <em class="ms-5 px-2 fs-6" style="background-color:lightblue;color:darkblue">Titans were bad</em>
+				  </p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_TD_FG_2022.png" class="d-block w-100" title="..."><br>		  
+				</div>	
+				<div class="carousel-item">
+				  <p>Offensive Drives - Points vs Touchdown Rate (7/7)			  
+				    <em class="ms-5 px-2 fs-6">obvious correlation showing importance of TDs</em>
+				  </p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_Pts_TD_2022.png" class="d-block w-100" title="..."><br>		  
+				</div>					
 			  </div>			
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselDriveResults" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon"></span>
@@ -6667,7 +6700,7 @@
 			<p class="mx-3">&nbsp;&nbsp;
 			  Committed penalties were tallied for Teams' Offense, Defense, and Special Teams. Total EPA sacrificed to penalties was 
 			  calculated for each phase, and total penalty yards were added for Offense and Defense. The table is currently sorted by
-			  <b>Def_penalty_EPA_given</b>, which is how much EPA a team's defense gave to their opponent's on offense. Low numbers show more 
+			  <b>Def_penalty_EPA_given</b>, which is how much EPA a team's defense gave to their opponents on offense. Low numbers show more 
 			  disciplined / lucky / sneaky teams.<br>
 			  <em class="fs-6">*I did not clean this data thoroughly, declined penalties 
 			  and other discrepancies likely contribute to penalty metrics.</em>
@@ -7805,24 +7838,24 @@
 			<div id="carouselPenalty" class="carousel slide" data-bs-theme="dark">
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
-				  <p>Penalties on Offense (1/5)</p>
+				  <p>Penalty EPA - Defense vs Offense (1/5)</p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Penalty_Depa_Oepa_2022.png" class="d-block w-100" title="...">
+				</div>	
+				<div class="carousel-item">
+				  <p>Penalties on Offense (2/5)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Penalty_O_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Penalty Yards Lost on Offense (2/5)</p>
+				  <p>Penalty Yards Lost on Offense (3/5)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Penalty_Oyd_2022.png" class="d-block w-100" title="...">
 				</div>				
 				<div class="carousel-item">
-				  <p>Penalties on Defense (3/5)</p>
+				  <p>Penalties on Defense (4/5)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Penalty_D_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Penalty Yards Lost on Defense (4/5)</p>
+				  <p>Penalty Yards Given on Defense (5/5)</p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/Y/Penalty_Dyd_2022.png" class="d-block w-100" title="...">
-				</div>	
-				<div class="carousel-item">
-				  <p>Penalty EPA - Defense vs Offense (5/5)</p>
-				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Penalty_Depa_Oepa_2022.png" class="d-block w-100" title="...">
 				</div>					
 			  </div>			
 			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselPenalty" data-bs-slide="prev">
@@ -7846,7 +7879,8 @@
 		   <br><em class="ms-4">Graphs only show players starting during or ending after the '90s.</em>
 		   </p>
 		   
-		   <p class="fs-5 ms-3">Pro-Football-Reference provides an <a href="https://www.pro-football-reference.com/about/approximate_value.htm">"Approximate Value"</a> metric. 
+		   <p class="fs-5 ms-3">&nbsp;&nbsp;
+		   Pro-Football-Reference provides an <a href="https://www.pro-football-reference.com/about/approximate_value.htm">"Approximate Value"</a> metric. 
 		   It is a measure of seasonal value for any player at any position, and assigned each year. 
 		   They conveniently provide tables of top Approximate Value (AV) earners for each franchise. 
 		   I used the <a href="https://www.pro-football-reference.com/teams/oti/career-av.htm">Oilers/Titans</a> table, and considered AV normalized by games played. 
@@ -17399,7 +17433,7 @@
 		   <p class="text-muted ms-5">2009-2021 play-by-play data: punt-attempts
 		   <br><b class="text-primary">Brett Kern's</b> Titans punts were separated from the rest of the dataset for comparison.</p>
 		   
-		   <p class="fs-5 ms-3">This dataset was used to get a feel for how to assess individual punter data. 
+		   <p class="fs-5 ms-3">&nbsp;&nbsp; This dataset was used to get a feel for how to assess individual punter data. 
 		   I will propose interpreations, and demonstrate some interesting trends over Brett Kern's career as a Titan. 
 		   The section focuses on a subset of the data, 2017-2019, Kern's Pro Bowl years. These will provide a standard of 
 		   high-quality punting in <a href="#scrollspyPuntKernStone">Part II - Brett Kern vs Ryan Stonehouse</a>.</p>		   
@@ -17665,7 +17699,7 @@
 		   <br><b class="text-primary">Ryan Stonehouse '22</b> vs. <b class="text-success">Brett Kern '17-'19</b></p>
 		   <div class="row container-fluid">
 		     <div class="row">
-			   <p class="fs-5 ms-3">
+			   <p class="fs-5 ms-3">&nbsp;&nbsp;
 			     In the <a href="#scrollspyPuntKern">previous section</a>, it was shown that Brett Kern outperformed other 
 				 NFL punters in his Pro Bowl years by comparing their <b>Normalized Net Yards</b> (net yards / yards to go). 
 			     It was also shown that Kern may have used OOB punts to realize his performance, and that his style was not typical of NFL punters.
@@ -17913,7 +17947,8 @@
 		   <br><b>EPA percentile</b> is relative to the 2022 NFL play-by-play dataset,
 		   <a href="https://www.nflfastr.com/articles/field_descriptions.html">QB epa</a> used for passing.
 		 </p>
-	     <p class="fs-5 ms-3">The tables below show all passing, rushing, receiving, and tackling for Titans punters from 2009-2022. 
+	     <p class="fs-5 ms-3">&nbsp;&nbsp;
+		   The tables below show all passing, rushing, receiving, and tackling for Titans punters from 2009-2022. 
 		   The offensive stats contain an <b>EPA percentile</b> column, which shows the punter's EPA/play 
 		   relative to all plays in 2022, for convenience. Some of the passes and rushes were on botched plays, click the 
 		   <b class="bg-info px-2">Punter Name Buttons</b> to see the detailed play descriptions.</p>
@@ -18133,7 +18168,7 @@
 	   <h2 class="ms-3" id="scrollspyPuntRStone">Ryan Stonehouse vs. Rest of NFL - 2022 season</h2>
 	     <p class="text-muted ms-5">2022 play-by-play data: punt-attempts
 		 <br>Titans rookie punter, <b>Ryan Stonehouse</b>, was separated from the rest of the dataset for comparison.</p> 
-		 <p class="fs-5 ms-3">This section evaluates Titans rookie Ryan Stonehouse against all other NFL punters in 2022.
+		 <p class="fs-5 ms-3">&nbsp;&nbsp; This section evaluates Titans rookie Ryan Stonehouse against all other NFL punters in 2022.
 		 The first part compares him to the NFL average, where he performs well. As the 2022 season ends, I will add definitive
 		 individual punter analysis to see how he compares to the league's best. For now, <a href="#PuntIndividual">some charts</a> 
 		 are displayed to evaluate individual punters in 2022. All graphs are updated with the displayed 
@@ -21679,7 +21714,7 @@
 		 <p class="text-muted ms-5">2022 play-by-play data: plays where a punter passes/rushes/receives/tackles
 		 <br><b>EPA percentile</b> is relative to the entire dataset's distribution,
 		 <a href="https://www.nflfastr.com/articles/field_descriptions.html">QB epa</a> used for passing.</p>
-	     <p class="fs-5 ms-3">The tables below show all passing, rushing, receiving, and tackling for punters in 
+	     <p class="fs-5 ms-3">&nbsp;&nbsp; The tables below show all passing, rushing, receiving, and tackling for punters in 
 		 2022. The offensive stats contain an <b>EPA percentile</b> column, which shows the punter's EPA/play 
 		 relative to all plays in 2022. For example, rushing EPA/play is measured against all rushes with non-null EPA.</p>
 		 
@@ -22172,7 +22207,7 @@
 	   <h4 class="ms-3 mt-2">QB/Team by percentage of passing EPA from YAC</h4>
 	     <p class="ms-5">investigate some narratives surrounding offenses that create YAC opportunities or QBs whose stats are inflated by production after the catch</p>
 	   <h4 class="ms-3 mt-2">Titans drive stallage / negative plays</h4>
-	     <p class="ms-5">to be determined . . .</p>
+	     <p class="ms-5">covered in 2022 review, see <a href="#scrollspyDriveAnalysis">per Drive Analyses</a></p>
 	   <h4 class="ms-3 mt-2">Derrick Henry</h4>
 	     <p class="ms-5">to be determined . . .</p>		 
 
