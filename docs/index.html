@@ -142,9 +142,9 @@
 			  over the span of the season. But for scrambles, where teams have more spread in play counts, the totals and averages 
 			  <a href="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/scramble/OScrambleEPA_total_perplay_2022.png">are not proportional</a>. 
 			  For the most part, EPA data is presented on a per play basis, but totals are shown in some of the graphs. 
-			  Use the <span class="text-info text-decoration-underline fw-bold">toggle text</span> to switch between EPA/play and Total EPA.
+			  Use the <span class="text-info text-decoration-underline fw-bold">toggle text</span> to switch between EPA/play and Total EPA in the table below.
 			<p class="ms-4">
-			  The graph shows the average EPA/play for each team on Defense and Offense. All the EPA data is presented in a table below; and 
+			  The graph shows the average EPA/play for each team on Defense and Offense. All the EPA data is presented in the following table; and 
 			  additional graphs are shown after the table. 
 			</p>
 		  </div>
@@ -7949,43 +7949,55 @@
 			<div id="carouselDriveResults" class="carousel slide" data-bs-theme="dark">
 			  <div class="carousel-inner">
 				<div class="carousel-item active">
-				  <p>Drives Resulting in Opponent Touchdowns - Off vs Def (1/7)
+				  <p>Offensive Drive Punt Rate, TD Rate vs EPA Rank (1/9)<br>
+					<em class="ms-5 fs-6">TD, punt rates of offenses organized by EPA ranking</em>
+				  </p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_EPA_2022.png" class="d-block w-100" title="...">
+				</div>	
+				<div class="carousel-item">
+				  <p>Defensive Drive Punt Rate, TD Rate vs EPA Rank (2/9)<br>
+					<em class="ms-5 fs-6">TD, punt rates of defenses organized by EPA ranking</em>
+				  </p>
+				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Dres_EPA_2022.png" class="d-block w-100" title="...">
+				</div>					
+				<div class="carousel-item">
+				  <p>Drives Resulting in Opponent Touchdowns - Off vs Def (3/9)
 					<em class="ms-5 fs-6">no longer correlated . . .</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/ODres_OppTD_2022.png" class="d-block w-100" title="...">
 				</div>	
 				<div class="carousel-item">
-				  <p>Offensive Drives Resulting in Field Goals vs Missed Field Goals (2/7)
+				  <p>Offensive Drives Resulting in Field Goals vs Missed Field Goals (4/9)
 				    <em class="ms-5 fs-6">AKA evaluating kickers for fantasy</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_FG_FGmiss_2022.png" class="d-block w-100" title="...">
 				</div>				
 				<div class="carousel-item">
-				  <p>Defensive Drives Resulting in Punts vs Turnovers (3/7)				  
+				  <p>Defensive Drives Resulting in Punts vs Turnovers (5/9)				  
 				    <em class="ms-5 px-2 fs-6" style="background-color:black;color:grey">Raiders . . . &#128551;</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Dres_turnover_punt_2022.png" class="d-block w-100" title="..."><br>		  
 				</div>
 				<div class="carousel-item">
-				  <p>Offensive Drives Resulting in Punts vs Turnovers (4/7)				  
+				  <p>Offensive Drives Resulting in Punts vs Turnovers (6/9)				  
 				    <em class="ms-5 px-2 fs-6" style="background-color:#005a8b;color:#b0b7bc">Lions . . . &#128562;</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_turnover_punt_2022.png" class="d-block w-100" title="..."><br>		  
 				</div>	
 				<div class="carousel-item">
-				  <p>Defensive Drives Resulting in Touchdowns vs Field goals (5/7)				  
+				  <p>Defensive Drives Resulting in Touchdowns vs Field goals (7/9)				  
 				    <em class="ms-5 px-2 fs-6" style="background-color:red;color:gold">SF was good</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Dres_TD_FG_2022.png" class="d-block w-100" title="..."><br>		  
 				</div>	
 				<div class="carousel-item">
-				  <p>Offensive Drives Resulting in Touchdowns vs Field goals (6/7)							  
+				  <p>Offensive Drives Resulting in Touchdowns vs Field goals (8/9)							  
 				    <em class="ms-5 px-2 fs-6" style="background-color:lightblue;color:darkblue">Titans were bad</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_TD_FG_2022.png" class="d-block w-100" title="..."><br>		  
 				</div>	
 				<div class="carousel-item">
-				  <p>Offensive Drives - Points vs Touchdown Rate (7/7)			  
+				  <p>Offensive Drives - Points vs Touchdown Rate (9/9)			  
 				    <em class="ms-5 px-2 fs-6">obvious correlation showing importance of TDs</em>
 				  </p>
 				  <img src="https://raw.githubusercontent.com/NBPub/TitanUp/main/images/team_metrics/XY/Ores_Pts_TD_2022.png" class="d-block w-100" title="..."><br>		  
@@ -23538,9 +23550,6 @@
 		.sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
 		.forEach(tr => tbody.appendChild(tr) );
 	})));
-	
-// add onclick to toggle
-
   </script>
   <script>
 // Toggle EPA table between per play and total
